@@ -1,9 +1,14 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
+import useSWR from 'swr'
 import styles from '../styles/Home.module.css'
 
+const fetcher = (url:string) => fetch(url).then((res) => res.json())
+
 const Home: NextPage = () => {
+  const {data} = useSWR('/api/hello', fetcher)
+  console.log(data)
   return (
     <div className={styles.container}>
       <Head>
