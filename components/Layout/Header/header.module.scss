@@ -1,0 +1,55 @@
+@use '../../../styles/variables.scss';
+
+.header {
+	width: 100%;
+	min-height: 135px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+  background: linear-gradient(to bottom, #f4f5f0 0%, #f4f5f0 32%, rgba(244,245,240,0.85) 70%, rgba(244,245,240,0.82) 71%, rgba(244,245,240,0) 100%);
+	color: variables.$dark-color;
+	position: sticky;
+	h1 {
+		cursor: pointer;
+		font-size: 4rem;
+		margin: 0;
+		color: variables.$dark-color;
+	}
+	.links {
+		display: flex;
+		align-items: center;
+		a {
+			margin: 0 20px;
+			font-size: 18px;
+			letter-spacing: -4px;
+			word-spacing: 8px;
+			cursor: pointer;
+      &::after {
+        content: '';
+        display: block;
+        border-bottom: 1px solid #3b3b3b;
+        transform: scaleX(0);
+        transition: all 0.2s;
+      }
+			&:hover::after {
+				transform: scaleX(1);
+			}
+		}
+	}
+	&.header_small {
+		flex-direction: row;
+		justify-content: space-between;
+		padding: 0 20px;
+		position: sticky;
+		top: 0;
+		h1 {
+			animation-name: appear;
+			animation-duration: 1s;
+		}
+	}
+}
+
+@keyframes appear {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
