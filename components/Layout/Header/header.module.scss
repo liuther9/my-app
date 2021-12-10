@@ -49,6 +49,21 @@
 	}
 }
 
+@media (max-width: 760px) {
+	.header {
+		min-height: 75px;
+		h1 {
+			font-size: 36px;
+		}
+		.links {
+			a {
+				font-size: 16px;
+				margin: 0 10px;
+			}
+		}
+	}
+}
+
 @keyframes appear {
   from {opacity: 0;}
   to {opacity: 1;}

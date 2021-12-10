@@ -34,3 +34,9 @@ h1, p, span, div, a {
   cursor: default;
   font-family: 'KleeOne';
 }
+
+@media (max-width: 760px) {
+  h1 {
+    font-size: 28px;
+  }
+}
