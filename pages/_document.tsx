@@ -5,18 +5,20 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head>
-          {/* <link
-            rel="stylesheet"
+          <link
+            rel="preload"
             href="/fonts/Klee_One/KleeOne-Regular.ttf"
-            as="font/ttf"
-            crossOrigin="anonymous"
+            as="font"
+            crossOrigin=""
+            type="font/ttf"
           />
           <link
-            rel="stylesheet"
+            rel="preload"
             href="/fonts/Klee_One/KleeOne-SemiBold.ttf"
-            as="font/ttf"
-            crossOrigin="anonymous"
-          /> */}
+            as="font"
+            crossOrigin=""
+            type="font/ttf"
+          />
         </Head>
         <body>
           <Main />
