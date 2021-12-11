@@ -8,14 +8,14 @@ body {
 }
 @font-face {
   font-family: "KleeOne";
-  src: url("/fonts/Klee_One/KleeOne-Regular.ttf");
+  src: url("/fonts/Klee_One/KleeOne-Regular.woff2");
   font-style: normal;
   font-weight: 400;
   font-display: swap;
 }
 @font-face {
   font-family: "KleeOne";
-  src: url("/fonts/Klee_One/KleeOne-SemiBold.ttf");
+  src: url("/fonts/Klee_One/KleeOne-SemiBold.woff2");
   font-style: medium;
   font-weight: 600;
   font-display: swap;

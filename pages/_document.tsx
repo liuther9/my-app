@@ -7,17 +7,17 @@ class MyDocument extends Document {
         <Head>
           <link
             rel="preload"
-            href="/fonts/Klee_One/KleeOne-Regular.ttf"
+            href="/fonts/Klee_One/KleeOne-Regular.woff2"
             as="font"
             crossOrigin=""
-            type="font/ttf"
+            type="font/woff2"
           />
           <link
             rel="preload"
-            href="/fonts/Klee_One/KleeOne-SemiBold.ttf"
+            href="/fonts/Klee_One/KleeOne-SemiBold.woff2"
             as="font"
             crossOrigin=""
-            type="font/ttf"
+            type="font/woff2"
           />
         </Head>
         <body>
