@@ -7,13 +7,19 @@ const Header:React.FC = () => {
 	const [menuActive, setMenuActive] = useState(false)
   const [small, setSmall] = useState(false);
 	const router = useRouter()
-	
+
   useEffect(() => {
     if (typeof window !== "undefined") {
 			const handleScroll = () => setSmall(window.pageYOffset > 50)
 			window.addEventListener("scroll", handleScroll)
 
-			return () => window.removeEventListener("scroll", handleScroll)
+			const handleRouteChange = () => setMenuActive(false)
+			router.events.on('routeChangeComplete', handleRouteChange)
+
+			return () => {
+				window.removeEventListener("scroll", handleScroll)
+				router.events.off("routeChangeComplete", handleRouteChange)
+			}
 		}
   }, []);
 
