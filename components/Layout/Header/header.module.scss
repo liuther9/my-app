@@ -1,14 +1,16 @@
 @use '../../../styles/variables.scss';
 
 .header {
+	z-index: 1;
 	width: 100%;
 	min-height: 135px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-  background: linear-gradient(to bottom, #f4f5f0 0%, #f4f5f0 32%, rgba(244,245,240,0.85) 70%, rgba(244,245,240,0.82) 71%, rgba(244,245,240,0) 100%);
+  background: transparent;
 	color: variables.$dark-color;
 	position: sticky;
+	overflow: hidden;
 	h1 {
 		cursor: pointer;
 		font-size: 4rem;
@@ -18,6 +20,7 @@
 	.links {
 		display: flex;
 		align-items: center;
+		transition: all 0.2s;
 		a {
 			margin: 0 20px;
 			font-size: 18px;
@@ -37,27 +40,84 @@
 	&.header_small {
 		flex-direction: row;
 		justify-content: space-between;
-		padding: 0 20px;
 		position: sticky;
 		top: 0;
+		background: linear-gradient(to bottom, #f4f5f0 0%, #f4f5f0 32%, rgba(244,245,240,0.85) 70%, rgba(244,245,240,0.82) 71%, rgba(244,245,240,0) 100%);
 		h1 {
 			animation-name: appear;
 			animation-duration: 1s;
+			padding-left: 20px;
+		}
+	}
+}
+
+.burger_btn {
+	display: none;
+	position: absolute;
+  top: 45%;
+  right: 10px;
+  transform: translate(-50%, 0);
+  width: 20px;
+	i,
+	&::before,
+	&::after {
+		content: '';
+		display: block;
+		width: 100%;
+		height: 3px;
+		background-color: variables.$dark-color;
+		background-size: cover;
+		margin-bottom: 1px;
+		transition: all 0.2s;
+	}
+	&_dropdown {
+		position: absolute;
+		top: 30px;
+		right: 0;
+		width: 100%;
+	}
+	&.active {
+		&::before {
+			transform: rotate(45deg) translate(2.4px, 3.1px);
+		}
+		&::after {
+			transform: rotate(-45deg) translate(2.4px, -3.1px);
+		}
+		i {
+			transform: translateX(50px);
+			opacity: 0;
 		}
 	}
 }
 
 @media (max-width: 760px) {
 	.header {
-		min-height: 75px;
+		padding-top: 10px;
+		min-height: auto;
 		h1 {
 			font-size: 36px;
 		}
+		.burger_btn {
+			display: block;
+		}
 		.links {
+			width: 100%;
+			padding: 10px 0;
+			height: 100vh;
+			position: fixed;
+			top: 0;
+			flex-direction: column;
+			transform: translateX(100%);
+			background: linear-gradient(to bottom, #f4f5f0 0%, #f4f5f0 32%, rgba(244,245,240,0.85) 70%, rgba(244,245,240,0.82) 71%, rgba(244,245,240,0) 100%);
 			a {
-				font-size: 16px;
-				margin: 0 10px;
+				margin: 5px 10px;
 			}
+			&.show {
+				transform: translateX(0);
+			}
+		}
+		&.header_small {
+			min-height: 75px;
 		}
 	}
 }
