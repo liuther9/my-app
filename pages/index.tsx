@@ -4,6 +4,7 @@ import Head from 'next/head'
 import { useCallback, useEffect, useState } from 'react'
 import styles from '../styles/Home.module.scss'
 import { supabase } from '../utils/supabaseClient'
+import ProductComponent from '../components/ProductComponent'
 
 type Props = {
   children: React.ReactNode,
@@ -53,13 +54,8 @@ const Home: NextPage<Props> = ({data, categories}) => {
           }
         </div>
       </div>
-
       <main className={styles.main}>
-          {products.map(product => <div key={product.id} className={styles.product}>
-            <div className={styles.name}>{product.name}</div>
-            <div className={styles.description}>Здесь будет описание данного продукта</div>
-            <div className={styles.price}>{product.price} тенге</div>
-          </div>)}
+          {products.map(product => <ProductComponent key={product.id} product={product} />)}
       </main>
 
     </div>
@@ -67,7 +63,7 @@ const Home: NextPage<Props> = ({data, categories}) => {
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  const { data, status, error } = await supabase.from('products').select('id, title, price, name, category')
+  const { data, status, error } = await supabase.from('products').select('id, title, price, name, category, image')
 
   const categories = data && Array.from(new Set(data.map(product => product.category)))
   

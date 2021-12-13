@@ -7,7 +7,6 @@ interface Type {
 }
 
 const Layout:React.FC<Type> = ({children}) => {
-
 	return <div className={s.wrapper}>
 			<Header />
 			<div className={s.container}>
