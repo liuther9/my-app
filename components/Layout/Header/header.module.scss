@@ -1,21 +1,19 @@
 @use '../../../styles/variables.scss';
 
 .header {
-	z-index: 1;
+	z-index: 2;
 	width: 100%;
 	min-height: 135px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
   background: transparent;
-	color: variables.$dark-color;
 	position: sticky;
 	overflow: hidden;
 	h1 {
 		cursor: pointer;
 		font-size: 4rem;
 		margin: 0;
-		color: variables.$dark-color;
 	}
 	.links {
 		display: flex;

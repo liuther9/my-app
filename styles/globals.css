@@ -16,8 +16,9 @@ a {
   box-sizing: border-box;
 }
 
-h1, p, span, div, a {
+h1, p, span, div, a, button {
   cursor: default;
+  color: #3F2537;
   font-family: 'Comfortaa';
 }
 
