@@ -5,16 +5,14 @@ import { useCallback, useEffect, useState } from 'react'
 import styles from '../styles/Home.module.scss'
 import { supabase } from '../utils/supabaseClient'
 import ProductComponent from '../components/ProductComponent'
+import Search from '../components/Search'
+import { Product } from '../types'
+import { GiFullPizza, GiCookie } from 'react-icons/gi'
+import { MdCake } from 'react-icons/md'
 
 type Props = {
   children: React.ReactNode,
-  data: {
-    id: number, 
-    title: string,
-    price: number,
-    name: string,
-    category: string,
-  }[] | [],
+  data: Product[] | [],
   categories: string[],
 }
 
@@ -22,14 +20,27 @@ const Home: NextPage<Props> = ({data, categories}) => {
   const [products, setProducts] = useState<any[]>([])
   const [selectedCategory, setSelectedCategory] = useState<string>('')
 
+  const categoryList = [
+    {
+      name: 'Пицца',
+      icon: <GiFullPizza size={22} color='#f0be62' />,
+    },
+    {
+      name: 'Десерты',
+      icon: <GiCookie size={22} color='#b38c24' />,
+    },
+    {
+      name: 'Пироги',
+      icon: <MdCake size={22} color='#f7aefa' />,
+    },
+  ]
+
   const filterProducts = useCallback((category: string) => {
     setSelectedCategory(category)
     setProducts(data.filter(product => product.category === category))
   }, [data])
 
-  useEffect(() => {
-    filterProducts(categories[0])
-  }, [categories, filterProducts])
+  useEffect(() => filterProducts(categories[0]), [categories, filterProducts])
 
   return (
     <div className={styles.container}>
@@ -39,21 +50,25 @@ const Home: NextPage<Props> = ({data, categories}) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <h1>МЕНЮ</h1>
+      <Search products={data} />
+
+      <div className='spacer'></div>
 
       <div className={styles.top_menu}>
         <div className={styles.categories_container}>
-          {categories.map(category => 
+          {categoryList.map(category => 
             <div
-              key={category}
-              onClick={() => filterProducts(category)}
-              className={selectedCategory === category ? styles.button + ' ' + styles.active : styles.button}
+              key={category.name}
+              onClick={() => filterProducts(category.name)}
+              className={selectedCategory === category.name ? styles.button + ' ' + styles.active : styles.button}
             >
-              {category}
+              <div>{category.name}</div>
+              {category.icon}
             </div>)
           }
         </div>
       </div>
+
       <main className={styles.main}>
           {products.map(product => <ProductComponent key={product.id} product={product} />)}
       </main>

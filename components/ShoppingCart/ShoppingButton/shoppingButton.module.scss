@@ -1,0 +1,49 @@
+@use '../../../styles/variables.scss';
+
+.wrapper {
+	z-index: 1;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	align-self: flex-end;
+	height: auto;
+	position: fixed;
+	top: 50%;
+	right: 0;
+	height: 50px;
+	min-width: 60px;
+	background: #ffffff;
+	padding: 10px;
+	border-top-left-radius: 50px;
+	border-bottom-left-radius: 50px;
+	@include variables.shadow;
+	cursor: pointer;
+	.btn {
+		text-align: center;
+	}
+
+	&::before, &::after {
+		content: '';
+		height: 0;
+		position: absolute;
+		width: 100%;
+		right: 0;
+		display: block;
+		border-left: 1px solid #3b3b3b;
+		transform: scale(0.5, 0);
+		transition: all 0.2s;
+	}
+	&::before {
+		top: 0;
+		border-top-left-radius: 25px;
+	}
+	&::after {
+		bottom: 0;
+		border-bottom-left-radius: 25px;
+	}
+	&:hover::before, &.btn_active::before, &:hover::after, &.btn_active::after {
+		transform: scale(1);
+		height: 50%;
+		width: 100%;
+	}
+}

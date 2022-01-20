@@ -1,5 +1,5 @@
 .footer {
-	background-color: #3F2537;
+	background-color: #f8c6e9;
 	width: 100vw;
 	min-height: 100px;
 	display: flex;
@@ -7,12 +7,11 @@
 	align-items: center;
 	justify-content: center;
 	.location {
-		color: #ffffff;
+		color: #f8eca6;
 		font-size: 14px;
 		margin-bottom: 10px;
 	}
 	.instagram {
 		cursor: pointer;
-		border: 1px solid #fff;
 	}
 }
