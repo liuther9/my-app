@@ -1,6 +1,12 @@
-$light-background: #82bb8e;
+$light-background: #ffffff;
 $light-hover: rgb(74, 112, 31);
 $light-color: #fff;
-$dark-color: #3F2537;
-$dark-background: #8ae091;
+$dark-color: #000000;
+$dark-background: #252525;
 $dark-hover: rgb(214, 214, 214);
+
+@mixin shadow {
+	-webkit-box-shadow: 0px 0px 20px 0px rgba(69, 126, 169, 0.2);
+	-moz-box-shadow: 0px 0px 20px 0px rgba(69, 126, 169, 0.2);
+	box-shadow: 0px 0px 20px 0px rgba(69, 126, 169, 0.2);
+}

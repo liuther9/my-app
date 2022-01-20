@@ -9,10 +9,11 @@
 	align-items: center;
   background: transparent;
 	position: sticky;
-	overflow: hidden;
 	h1 {
 		cursor: pointer;
 		font-size: 4rem;
+		font-weight: 900;
+		color: rgb(230, 200, 103);
 		margin: 0;
 	}
 	.links {
@@ -40,7 +41,7 @@
 		justify-content: space-between;
 		position: sticky;
 		top: 0;
-		background: linear-gradient(to bottom, #f4f5f0 0%, #f4f5f0 32%, rgba(244,245,240,0.85) 70%, rgba(244,245,240,0.82) 71%, rgba(244,245,240,0) 100%);
+		background: linear-gradient(to bottom, #ffffff 0%, #ffffff 32%, rgba(255, 255, 255, 0.85) 70%, rgba(255, 255, 255, 0) 100%);
 		h1 {
 			animation-name: appear;
 			animation-duration: 1s;
@@ -56,6 +57,8 @@
   right: 10px;
   transform: translate(-50%, 0);
   width: 20px;
+	height: 20px;
+	cursor: pointer;
 	i,
 	&::before,
 	&::after {
@@ -76,13 +79,12 @@
 	}
 	&.active {
 		&::before {
-			transform: rotate(45deg) translate(2.4px, 3.1px);
+			transform: rotate(45deg);
 		}
 		&::after {
-			transform: rotate(-45deg) translate(2.4px, -3.1px);
+			transform: translateY(-7.5px) rotate(-45deg);
 		}
 		i {
-			transform: translateX(50px);
 			opacity: 0;
 		}
 	}
@@ -96,7 +98,9 @@
 			font-size: 36px;
 		}
 		.burger_btn {
-			display: block;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
 		}
 		.links {
 			width: 100%;
@@ -106,7 +110,7 @@
 			top: 0;
 			flex-direction: column;
 			transform: translateX(100%);
-			background: linear-gradient(to bottom, #f4f5f0 0%, #f4f5f0 32%, rgba(244,245,240,0.85) 70%, rgba(244,245,240,0.82) 71%, rgba(244,245,240,0) 100%);
+			background: variables.$light-background;
 			a {
 				margin: 5px 10px;
 			}

@@ -1,84 +1,58 @@
 @use '../../styles/variables.scss';
-
 .product {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	justify-content: space-between;
 	margin-bottom: 40px;
-	width: 100%;
+	max-width: 100%;
+	width: 400px;
+	min-height: 300px;
 	position: relative;
-	.button_container {
-		position: relative;
-		margin-bottom: 10px;
-		.name {
-			font-size: 24px;
-			text-align: center;
-			font-weight: 600;
-			background: transparent;
-			border: 1px solid variables.$dark-color;
-			border-radius: 10px;
-			padding: 7px 15px;
-			transition: ease-in-out 0.2s;
-			&:hover {
-				-webkit-box-shadow: 0px 0px 8px 0px rgba(34, 60, 80, 0.2);
-				-moz-box-shadow: 0px 0px 8px 0px rgba(34, 60, 80, 0.2);
-				box-shadow: 0px 0px 8px 0px rgba(34, 60, 80, 0.2);
-			}
-			&:active {
-				transform: scale(0.98);
-			}
-		}
-		.modal_img {
-			overflow: hidden;
-			z-index: 1;
-			opacity: 0;
-			position: absolute;
-			border-radius: 10px;
-			top: calc(100% + 10px);
-			left: 50%;
-			max-width: 300px;
-			width: 0;
-			height: 0;
-			transform: translate(-50%, -50px);
-			transition: ease-in-out 0.3s;
-			-webkit-box-shadow: 0px 4px 20px 0px rgba(34, 60, 80, 0.2);
-			-moz-box-shadow: 0px 4px 20px 0px rgba(34, 60, 80, 0.2);
-			box-shadow: 0px 4px 20px 0px rgba(34, 60, 80, 0.2);
-			&.modal_show {
-				width: 100vw;
-				transform: translate(-50%, 0);
-				display: block;
-				height: 200px;
-				opacity: 1;
-			}
-		}
+	@include variables.shadow;
+	border-radius: 10px;
+}
+
+.image {
+	position: relative;
+	display: block;
+	width: 90%;
+	height: 250px;
+	margin-top: -10px;
+	border-radius: 10px;
+	overflow: hidden;
+}
+
+.name, .price {
+	font-size: 20px;
+}
+
+.item {
+	&_info {
+		width: 90%;
+		display: flex;
+		flex-direction: column;
+		border-radius: 10px;
+		align-items: center;
+		padding: 10px 0 20px;
+		background: variables.$light-background;
 	}
-	.description {
-		text-align: center;
-		font-size: 16px;
-		margin-bottom: 10px;
-		width: 50%;
-	}
-	.image {
-		position: absolute;
-		top: 0;
-		right: 0;
+	&_about {
+		width: 100%;
+		align-items: center;
+		justify-content: space-between;
+		display: flex;
 	}
 }
 
 @media (max-width: 760px) {
-	.product {
-		.button_container {
-			.name {
-				font-size: 20px;
-			}
-		}
-		.description {
-			font-size: 14px;
-			width: 80%;
-		}
-		.price {
-			font-size: 18px;
-		}
+	.name, .price {
+		font-size: 18px;
+	}
+	.price {
+		font-size: 16px;
+	}
+	.image {
+		height: 200px;
 	}
 }

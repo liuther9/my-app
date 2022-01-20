@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react'
 const Header:React.FC = () => {
 	const [menuActive, setMenuActive] = useState(false)
   const [small, setSmall] = useState(false);
+
 	const router = useRouter()
 
   useEffect(() => {
