@@ -12,7 +12,7 @@ type Props = {
 }
 
 const ShoppingModal: React.FC<Props> = ({items, cartOpen, setCartOpen}) => {
-	const {cart, addProduct, removeItem} = useContext(AppContext)
+	const {cart, addProduct, removeItem, clearCart} = useContext(AppContext)
 	const router = useRouter()
 
   useEffect(() => {
@@ -24,31 +24,37 @@ const ShoppingModal: React.FC<Props> = ({items, cartOpen, setCartOpen}) => {
 		}
   }, []);
 
-	const proceedToCheckout = async () => {
-		const user = await supabase.auth.user()
+	const proceedToCheckout = () => {
+		const user = supabase.auth.user()
 		user ? router.push('/cart') : router.push('/auth')
 	}
 
 	return <div className={s.wrapper}>
-		<div className={!cartOpen ? s.container : `${s.container} ${s.active}`} onBlur={() => setCartOpen(false)}>
-			<div className={s.close} onClick={() => setCartOpen(false)}>X</div>
-			<div className={s.list}>
+		<div className={!cartOpen ? s.container : `${s.container} ${s.active}`}>
+			<button className={s.close + ' ' + s.small_btn} onClick={() => setCartOpen(false)}>x</button>
+			<ul className={s.list}>
 				{cart?.items.map((item: Product) => {
 					return (
-						<div
+						<li
 							key={item.id}
-							onClick={() => removeItem && removeItem(item)}
 							className={s.item}
 						>
-							<div>{item.name}</div>
-							<div>{item.quantity} шт.</div>
-						</div>
+							<h4>{item.name}</h4>
+							<div className={s.item_amount}>
+								<button onClick={() => addProduct && addProduct(item)} className={s.small_btn}>+</button>
+								<span>{item.quantity} шт.</span>
+								<button onClick={() => removeItem && removeItem(item)} className={s.small_btn}>-</button>
+							</div>
+						</li>
 					)
 				})}
-			</div>
-			<div className={cart?.itemCount && cart?.itemCount > 0 ? s.total_buy : s.total_buy_empty}>
-				<div>Сумма {cart?.total} тенге</div>
-				<button onClick={() => proceedToCheckout()}>Далее</button>
+			</ul>
+			<div className={s.bottom_container}>
+				<div className={cart?.itemCount && cart?.itemCount > 0 ? s.total_buy : s.total_buy + ' ' + s.total_buy_empty}>
+					<span>Сумма {cart?.total} тенге</span>
+					<button onClick={() => proceedToCheckout()}>Далее</button>
+				</div>
+				<button className={s.clear_btn} onClick={() => clearCart && clearCart()}>Удалить все</button>
 			</div>
 		</div>
 	</div>

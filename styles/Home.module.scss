@@ -35,6 +35,9 @@
       cursor: pointer;
       transition: all 0.2s ease-in-out;
       margin: 0 15px;
+      span {
+        cursor: pointer;
+      }
       &::after {
         content: '';
         display: block;
@@ -49,6 +52,9 @@
         }
       }
       &.active {
+        span {
+          cursor: default;
+        }
         cursor: default;
       }
     }

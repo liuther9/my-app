@@ -29,7 +29,7 @@ const Header:React.FC = () => {
 		<div className={!menuActive ? s.burger_btn : `${s.burger_btn} ${s.active}`} onClick={() => setMenuActive(!menuActive)}>
 			<i />
 		</div>
-		<div className={!menuActive ? s.links : `${s.links} ${s.show}`}>
+		<nav className={!menuActive ? s.links : `${s.links} ${s.show}`}>
 			<div className={s.burger_btn_dropdown}>
 				<div className={!menuActive ? s.burger_btn : `${s.burger_btn} ${s.active}`} onClick={() => setMenuActive(!menuActive)}>
 					<i />
@@ -38,7 +38,7 @@ const Header:React.FC = () => {
 			<Link href='/'>Меню</Link>
 			<Link href='/about'>О нас</Link>
 			<Link href='/contacts'>Контакты</Link>
-		</div>
+		</nav>
 	</header>
 }
 

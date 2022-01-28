@@ -18,8 +18,10 @@ type Cart = {
 	itemCount: number,
 }
 
+const initialState = { items: [], total: 0, itemCount: 0 }
+
 const Layout:React.FC<IType> = ({children}) => {
-	const [cart, setCart] = useState<Cart>({ items: [], total: 0, itemCount: 0 })
+	const [cart, setCart] = useState<Cart>(initialState)
 	const [cartOpen, setCartOpen] = useState(false)
 	const { session } = Auth()
 
@@ -89,10 +91,15 @@ const Layout:React.FC<IType> = ({children}) => {
   }
 	//------------------------------------------------------------------------------------
 
+	// CLEAR CART
+	const clearCart = () => setCart(initialState)
+	//------------------------------------------------------------------------------------
+
 	return <AppContext.Provider value={{
 		cart,
 		addProduct,
 		removeItem,
+		clearCart,
 	}}>
 		<div className={s.wrapper}>
 			<Header />
