@@ -17,7 +17,7 @@ const Search:React.FC<Props> = ({ products }) => {
 	const filter = () => {
 		if(value.length > 0) {
 			dropdown === false && setDropdown(true)
-			setFilteredResults(products.filter(product => product.name.toLowerCase().includes(value)))
+			setFilteredResults(products.filter(product => product.name.toLowerCase().includes(value.toLowerCase())))
 		} else {
 			setDropdown(false)
 			setFilteredResults([])

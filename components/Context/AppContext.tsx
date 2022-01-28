@@ -9,6 +9,7 @@ type Type = {
 	},
 	addProduct: (item: Product) => void,
 	removeItem: (item: Product) => void,
+	clearCart: () => void,
 }
 const initialValue = {
 	cart: {
@@ -17,7 +18,8 @@ const initialValue = {
 		itemCount: 0,
 	},
 	addProduct: () => {},
-	removeItem: () => {}
+	removeItem: () => {},
+	clearCart: () => {},
 }
 
 const AppContext = createContext<Partial<Type>>(initialValue)

@@ -18,12 +18,12 @@ const ProductComponent: React.FC<Props> = React.memo(({product}) => {
 			{image && <Image src={image} layout='fill' objectFit='cover' />}
 		</div>
 		<div className={styles.item_info}>
-			<div className={styles.item_about}>
+			<article className={styles.item_about}>
 				<h2 className={styles.name}>{name}</h2>
-				<div className={styles.price} onClick={() => addProduct && addProduct(product)}>{price} тг</div>
-			</div>
-			<div className={styles.item_rating}>
-				***
+				<span className={styles.price}>{price} тг</span>
+			</article>
+			<div className={styles.item_bottom_container}>
+				<button onClick={() => addProduct && addProduct(product)}>Купить</button>
 			</div>
 		</div>
 	</div>

@@ -1,5 +1,5 @@
 import { User } from "@supabase/supabase-js"
-import { GetServerSideProps, NextApiRequest, NextPage } from "next"
+import { GetServerSideProps, NextPage } from "next"
 import { FormEvent, useState } from "react"
 import { supabase } from "../../utils/supabaseClient"
 import s from './cart.module.scss'
