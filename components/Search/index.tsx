@@ -26,7 +26,7 @@ const Search:React.FC<Props> = ({ products }) => {
 
 	useEffect(() => filter(), [value])
 
-	return <div className={s.wrapper}>
+	return <section className={s.wrapper}>
 		<input
 			ref={inputRef}
 			autoCorrect='off'
@@ -46,17 +46,17 @@ const Search:React.FC<Props> = ({ products }) => {
 				onBlur={() => setTimeout(() => !inputRef.current?.contains(document.activeElement) && setDropdown(false), 10)}
 			>
 				{filteredResults.map(product => 
-					<div className={s.product} key={product.id}>
+					<div className={s.product} key={product.id} onClick={() => {}}>
 						<div className={s.product_image}>
 							{product.image && <Image src={product.image} layout='fill' objectFit='cover'/>}
 						</div>
 						<div className='spacer'></div>
-						<div className={s.product_name}>{product.name}</div>
+						<h4 className={s.product_name}>{product.name}</h4>
 					</div>
 				)}
 			</div>
 		}
-	</div>
+	</section>
 }
 
 export default Search

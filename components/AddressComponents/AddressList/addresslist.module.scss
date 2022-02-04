@@ -1,0 +1,15 @@
+@use '../../../styles/variables.scss';
+
+.address_list {
+	width: 100%;
+	padding: 20px;
+	border-radius: 10px;
+	margin-bottom: 20px;
+	@include variables.shadow;
+	h3 {
+		margin: 0 0 10px;
+	}
+	&_item {
+		input:checked ~ label { background: red; }
+	}
+}

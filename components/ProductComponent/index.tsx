@@ -15,7 +15,7 @@ const ProductComponent: React.FC<Props> = React.memo(({product}) => {
 
 	return <div className={styles.product}>
 		<div className={styles.image}>
-			{image && <Image src={image} layout='fill' objectFit='cover' />}
+			{image && <Image alt={name} src={image} layout='fill' objectFit='cover' priority />}
 		</div>
 		<div className={styles.item_info}>
 			<article className={styles.item_about}>

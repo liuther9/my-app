@@ -1,3 +1,4 @@
+@use '../../styles/variables.scss';
 .container {
   display: flex;
 	align-items: center;
@@ -15,7 +16,6 @@
 .container input {
   position: absolute;
   opacity: 0;
-  cursor: pointer;
 }
 
 .checkmark {
@@ -26,6 +26,7 @@
   width: 25px;
   background-color: #eee;
   border-radius: 50%;
+  cursor: pointer;
 }
 
 .container:hover input ~ .checkmark {
@@ -33,7 +34,7 @@
 }
 
 .container input:checked ~ .checkmark {
-  background-color: #2196F3;
+  background-color: variables.$pink;
 }
 
 .checkmark:after {

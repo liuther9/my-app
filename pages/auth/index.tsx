@@ -2,7 +2,8 @@ import { User } from "@supabase/supabase-js"
 import { GetServerSideProps, NextPage } from "next"
 import { FormEvent, useState } from "react"
 import { supabase } from "../../utils/supabaseClient"
-import s from './cart.module.scss'
+import s from './auth.module.scss'
+import { ImSpinner } from 'react-icons/im'
 
 type Props = {
 	user: User,
@@ -12,24 +13,31 @@ type Props = {
 const Cart: NextPage<Props> = ({ user, loggedIn }) => {
 	const [email, setEmail] = useState('')
 	const [linkSent, setLinkSent] = useState(false)
+	const [loading, setLoading] = useState(false)
 
 	const submitForm = async (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
-		let { user, error } = await supabase.auth.signIn({ email })
-		error === null && setLinkSent(true)
-		console.log('NEW USER', user, error)
+		setLoading(true)
+		let { user, error, session } = await supabase.auth.signIn({ email })
+		if(error === null) {
+			setLinkSent(true)
+			setLoading(false)
+		}
+		console.log('NEW USER', user, error, session)
 	}
 
 	return <div className={s.wrapper}>
-		{ !linkSent &&
+		{ loading && !linkSent && <ImSpinner size={30}/> }
+		{ !linkSent && !loading &&
 			<form onSubmit={submitForm}>
-				<input type='text' value={email} onChange={e => setEmail(e.target.value)} autoComplete="on" spellCheck="false" autoCorrect="off" placeholder="Почта / Логин"/>
+				<label>Введите почту чтобы продолжить</label>
+				<input type='email' value={email} onChange={e => setEmail(e.target.value)} autoComplete="on" spellCheck="false" autoCorrect="off" placeholder="Почта / Логин" required/>
 				<div className={s.spacer}></div>
-				<button>sign up</button>
+				<button>Далее</button>
 			</form>
 		}
-		{ linkSent &&
-			<div>Ссылка для входа в профиль отправлена. Проверьте вашу почту...</div>
+		{ linkSent && !loading &&
+			<p>Ссылка для входа в профиль отправлена. Проверьте вашу почту...</p>
 		}
 	</div>
 }

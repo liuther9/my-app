@@ -2,6 +2,8 @@ import { useRouter } from 'next/router'
 import Link from 'next/link'
 import s from './header.module.scss'
 import { useEffect, useState } from 'react'
+import Image from 'next/image'
+import logo from '../../../public/NOOTS-logos/NOOTS-logos_black.png'
 
 const Header:React.FC = () => {
 	const [menuActive, setMenuActive] = useState(false)
@@ -25,7 +27,11 @@ const Header:React.FC = () => {
   }, []);
 
 	return <header className={!small ? s.header : `${s.header} ${s.header_small}`}>
-		<h1 onClick={() => router.push('/')}>NOOTS</h1>
+			<Link href='/' passHref={true}>
+				<div className={s.logo}>
+					<Image src={logo} className={s.logo_icon} layout='fill' objectFit='cover' alt='NOOTS'/>
+				</div>
+			</Link>
 		<div className={!menuActive ? s.burger_btn : `${s.burger_btn} ${s.active}`} onClick={() => setMenuActive(!menuActive)}>
 			<i />
 		</div>

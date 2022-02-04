@@ -3,15 +3,15 @@ import { supabase } from "../../utils/supabaseClient";
 
 export default async function handler(req:NextApiRequest, res:NextApiResponse) {
 	if(req.method === 'POST') {
-		const address = req.body.address
-		const phone = req.body.phone
-		const user_id: string = req.body.user_id
-	
+		const { address, phone, user_id } = req.body
+		const JWT = req.headers.authorization
+		supabase.auth.setAuth(JWT ? JWT : '') 
+
 		const { data, error } = await supabase.from('USER_INFO').insert(
 			[
 				{ user_id, address, phone }
 			],
-			{ returning: 'minimal' },
+			{ returning: "minimal" },
 		)
 	
 		if(error) return res.status(400).json({ error: error.message })

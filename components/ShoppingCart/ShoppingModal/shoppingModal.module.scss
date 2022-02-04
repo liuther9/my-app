@@ -36,7 +36,6 @@
 	top: 10px;
 	right: 10px;
 	padding: 5px 10px;
-	cursor: pointer;
 }
 
 .item {
@@ -49,7 +48,9 @@
 	justify-content: space-between;
 	&_amount {
 		display: flex;
+		min-width: 105px;
 		align-items: center;
+		justify-content: space-between;
 	}
 }
 
@@ -69,7 +70,6 @@
 		background-color: transparent;
 		transition: ease-in-out 0.1s;
 		padding: 10px;
-		cursor: pointer;
 		&:hover {
 			border: 1px solid variables.$dark-color;
 		}
@@ -100,10 +100,11 @@
 	top: 10px;
 	left: 20px;
 	width: fit-content;
-	border: 1px solid #fd9f9f;
+	background-color: variables.$pink;
+	border: 1px solid variables.$pink;
 	border-radius: 30px;
 	padding: 7px;
-	color: #fd9f9f;
+	color: variables.$pink;
 	background-color: transparent;
 	transition: ease-in-out 0.1s;
 	&:active {
