@@ -1,3 +1,4 @@
+import { Session } from "@supabase/supabase-js";
 import { createContext } from "react";
 import { Product } from "../../types";
 
@@ -10,6 +11,7 @@ type Type = {
 	addProduct: (item: Product) => void,
 	removeItem: (item: Product) => void,
 	clearCart: () => void,
+	session: Session,
 }
 const initialValue = {
 	cart: {

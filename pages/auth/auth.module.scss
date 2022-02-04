@@ -1,0 +1,53 @@
+@use '../../styles/variables.scss';
+
+.wrapper {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	label, p {
+		margin-bottom: 25px;
+		width: 90%;
+		text-align: center;
+	}
+	input {
+		border: 1px solid transparent;
+		border-radius: 5px;
+		text-align: center;
+		background: #ff6dbd36;
+		padding: 10px;
+		width: 250px;
+		outline: none;
+	}
+	form {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+	}
+	button {
+		border: 1px solid transparent;
+		border-radius: 30px;
+		padding: 10px;
+		background-color: transparent;
+		transition: ease-in-out 0.1s;
+		&:hover {
+			border: 1px solid variables.$dark-color;
+		}
+		&:active {
+			transform: scale(0.95);
+		}
+	}
+	svg {
+		animation: loading 1.5s linear 0s infinite none;
+	}
+}
+
+@keyframes loading {
+  from {transform: rotate(0deg);}
+  to {transform: rotate(359deg);}
+}
+
+.spacer {
+	height: 10px;
+}

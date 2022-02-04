@@ -1,3 +1,4 @@
+import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { Fragment, useState, useEffect } from 'react'
 import { Product } from '../../types'
@@ -100,8 +101,14 @@ const Layout:React.FC<IType> = ({children}) => {
 		addProduct,
 		removeItem,
 		clearCart,
+		session: session !== null ? session : undefined,
 	}}>
 		<div className={s.wrapper}>
+      <Head>
+        <title>Кофейня NOOTS в Нур-Султане</title>
+        <meta name="description" content="Кофейня NOOTS в Нур-Султане" />
+        <link rel="icon" href="/NOOTS-logos/NOOTS-logos.jpeg" />
+      </Head>
 			<Header />
 			{router.pathname !== '/cart' && cart.itemCount !== 0 &&
 				<Fragment>

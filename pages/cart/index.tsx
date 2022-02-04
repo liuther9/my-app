@@ -1,7 +1,10 @@
 import { User } from "@supabase/supabase-js"
 import { GetServerSideProps, NextPage } from "next"
-import { FormEvent, useState } from "react"
-import useSWR from "swr"
+import { useEffect, useState } from "react"
+import useSWR, { useSWRConfig } from "swr"
+import AddressForm from "../../components/AddressComponents/AddressForm"
+import AddressList from "../../components/AddressComponents/AddressList"
+import OrderNavigationBar from "../../components/OrderNavigationBar"
 import RadioButton from "../../components/RadioButton"
 import { supabase } from "../../utils/supabaseClient"
 import s from './cart.module.scss'
@@ -11,82 +14,62 @@ type Props = {
 	loggedIn: boolean,
 }
 
-const Profile: NextPage<Props> = ({ user, loggedIn }) => {
-	const [street, setStreet] = useState('')
-	const [building, setBuilding] = useState('')
-	const [appartment, setAppartment] = useState('')
-	const [phone, setPhone] = useState('')
+interface IPaymentTypes {
+	name: 'cash' | 'card',
+	label: string,
+}
+
+const paymentTypes:IPaymentTypes[] = [
+	{
+		name: 'cash',
+		label: 'Оплата наличными',
+	},
+	{
+		name: 'card',
+		label: 'Оплата картой',
+	},
+]
+
+
+const Cart: NextPage<Props> = ({ user, loggedIn }) => {
 	const [selectedRadio, setSelectedRadio] = useState('')
+	const [pageSwitched, setPageSwitched] = useState(false)
+	const [paymentType, setPaymentType] = useState<'cash' |'card'>('cash')
 
-	const newAddress = 'new'
-
-  const handleRadioChange = (item: string) => setSelectedRadio(item)
-
+  const { mutate } = useSWRConfig()
 	const fetcher = (url: string) => fetch(url + `?id=${user.id}`).then((res) => res.json());
-
 	const { data, error } = useSWR('/api/address', fetcher)
 
-	const onSubmit = async () => {
-		if(selectedRadio === newAddress) {
-			const res = await fetch('/api/address', {
-				method: 'POST',
-				headers: new Headers({ 'Content-Type': 'application/json' }),
-				credentials: 'same-origin',
-				body: JSON.stringify({ user_id: user.id, address: { street, building, appartment }, phone })
-			})
-		}
+  const handleRadioChange = (item: string) => setSelectedRadio(item)
+	const submitOrder = async () => {
+		// fetch('/api/order', {
+		// 	method: 'POST',
+			
+		// })
 	}
+	const nextButtonAction = () => pageSwitched === false ? setPageSwitched(true) : submitOrder()
+
+	useEffect(() => {handleRadioChange(data && data?.at(-1) && data.at(-1).id)}, [data])
 
 	return <div className={s.wrapper}>
 		<div className={s.container}>
-
-			<div className={s.address_list}>
-				<h3>Выберите адрес:</h3>
-				{data?.map((address: any) => 
-					<div className={s.address_list_item} key={address.id}>
-						<RadioButton
-							label={`${address.address.street} ${address.address.building}, квартира ${address.address.appartment}`}
-							value={selectedRadio === address.id}
-							name='radio'
-							onChange={() => handleRadioChange(address.id)}
-						/>
-					</div>
-				)}
-				<RadioButton
-					label='Новый адрес'
-					value={selectedRadio === newAddress}
-					name='radio'
-					onChange={() => handleRadioChange(newAddress)}
-				/>
-			</div>
-
-			<div className="spacer"></div>
-
-			<form onSubmit={onSubmit} className={selectedRadio === 'new' ? s.form + ' ' + s.form_open : s.form}>
-				<input type='text' value={street} onChange={e => setStreet(e.target.value)} placeholder="Улица"/>
-				<div className="spacer"></div>
-				<div className={s.address_details}>
-					<input type='text' value={building} onChange={e => setBuilding(e.target.value)} placeholder="Дом"/>
-					<div className="spacer"></div>
-					<input type='text' value={appartment} onChange={e => setAppartment(e.target.value)} placeholder="Квартира"/>
+			<OrderNavigationBar setPageSwitched={setPageSwitched} pageSwitched={pageSwitched} nextButtonAction={nextButtonAction} />
+			<div style={{position: 'absolute'}} className={!pageSwitched ? s.page + ' ' + s.page_switched : s.page}>
+				<div className={s.payment_container}>
+					{ paymentTypes.map(payment => <RadioButton label={payment.label} name={payment.name} value={paymentType === payment.name} onChange={() => setPaymentType(payment.name)}/>) }
 				</div>
-				<div className="spacer"></div>
-				<input type='phone' value={phone} onChange={e => setPhone(e.target.value)} placeholder="Телефон"/>
-				<div className="spacer"></div>
-				<button
-					className={s.button}
-					onClick={onSubmit}
-					disabled={(selectedRadio === newAddress && (street === '' || building === '' || phone === '' || appartment === '')) || selectedRadio === ''}
-				>
-					Далее
-				</button>
-			</form>
-			
+			</div>
+			<div className={!pageSwitched ? s.page : s.page + ' ' + s.page_switched}>
+				{ data?.length > 0 && 
+					<AddressList selectedRadio={selectedRadio} handleRadioChange={handleRadioChange} data={data} />
+				}
+				<AddressForm id={user.id} mutate={mutate} />
+			</div>
 		</div>
 	</div>
 }
 
-export default Profile
+export default Cart
 
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 	const { user } = await supabase.auth.api.getUserByCookie(req)

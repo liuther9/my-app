@@ -36,6 +36,10 @@ h1, p, span, div, a, button {
   font-family: 'Comfortaa';
 }
 
+button, a {
+  cursor: pointer;
+}
+
 @media (max-width: 760px) {
   h1 {
     font-size: 28px;
