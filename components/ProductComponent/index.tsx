@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import styles from './productComponent.module.scss'
 import { Product } from '../../types'
-import AppContext from '../Context/AppContext'
+import AppContext from '../../store/Context/AppContext'
 import Image from 'next/image'
 
 type Props = {

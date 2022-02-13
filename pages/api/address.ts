@@ -5,7 +5,7 @@ export default async function handler(req:NextApiRequest, res:NextApiResponse) {
 	if(req.method === 'POST') {
 		const { address, phone, user_id } = req.body
 		const JWT = req.headers.authorization
-		supabase.auth.setAuth(JWT ? JWT : '') 
+		supabase.auth.setAuth(JWT ? JWT : '')
 
 		const { data, error } = await supabase.from('USER_INFO').insert(
 			[

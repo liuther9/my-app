@@ -2,7 +2,7 @@ import { useRouter } from 'next/router'
 import { SetStateAction, useContext, useEffect } from 'react'
 import { Product } from '../../../types'
 import { supabase } from '../../../utils/supabaseClient'
-import AppContext from '../../Context/AppContext'
+import AppContext from '../../../store/Context/AppContext'
 import s from './shoppingModal.module.scss'
 
 type Props = {
