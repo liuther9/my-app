@@ -20,13 +20,13 @@ export default async function handler(req:NextApiRequest, res:NextApiResponse) {
 
 	if(error) return res.status(400).json({ error: error.message })
 
-	const message = JSON.stringify(data)
+	const order = data && data[0]
 
-	const sendMessage = `${data[0].order_list.map((item: { name: string; quantity: string | number; }) => 
+	const sendMessage = `${order.order_list?.map((item: { name: string; quantity: string | number; }) => 
 	`${item.name} ${item.quantity} шт.%0A`)}%0A
-	Общая сумма ${data[0].total}%0A
-	${data[0].payed?'Оплачено':'Не оплачено'}%0A
-	Способ оплаты ${data[0].payment_type}`
+	Общая сумма ${order.total}%0A
+	${order.payed?'Оплачено':'Не оплачено'}%0A
+	Способ оплаты ${order.payment_type}`
 
 	fetch(`https://api.telegram.org/bot5095347305:AAHUpQYNmkqlYIj2-UEq-8FjNZvrVnru-9s/sendMessage?chat_id=695738150&text=${sendMessage}`)
 
