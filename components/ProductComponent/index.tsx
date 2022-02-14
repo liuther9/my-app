@@ -1,8 +1,9 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import styles from './productComponent.module.scss'
 import { Product } from '../../types'
 import AppContext from '../../store/Context/AppContext'
 import Image from 'next/image'
+import ProductModal from './ProductModal'
 
 type Props = {
 	product: Product,
@@ -10,11 +11,17 @@ type Props = {
 
 const ProductComponent: React.FC<Props> = React.memo(({product}) => {
 	const { name, price, image, id } = product
+	const [showModal, setShowModal] = useState(false)
 
 	const {cart, addProduct} = useContext(AppContext)
 
 	return <div className={styles.product}>
-		<div className={styles.image}>
+		<ProductModal
+			product={product}
+			showModal={showModal}
+			setShowModal={setShowModal}
+		/>
+		<div className={styles.image} onClick={() => setShowModal(true)}>
 			{image && <Image alt={name} src={image} layout='fill' objectFit='cover' priority />}
 		</div>
 		<div className={styles.item_info}>
