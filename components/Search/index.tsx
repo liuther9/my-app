@@ -2,6 +2,7 @@ import Image from 'next/image'
 import { useRef, useEffect, useState } from 'react'
 import { Product } from '../../types'
 import s from './search.module.scss'
+import SearchProduct from './SearchProduct'
 
 type Props = {
 	products: Product[]
@@ -45,15 +46,7 @@ const Search:React.FC<Props> = ({ products }) => {
 				tabIndex={0}
 				onBlur={() => setTimeout(() => !inputRef.current?.contains(document.activeElement) && setDropdown(false), 10)}
 			>
-				{filteredResults.map(product => 
-					<div className={s.product} key={product.id} onClick={() => {}}>
-						<div className={s.product_image}>
-							{product.image && <Image src={product.image} layout='fill' objectFit='cover'/>}
-						</div>
-						<div className='spacer'></div>
-						<h4 className={s.product_name}>{product.name}</h4>
-					</div>
-				)}
+				{filteredResults.map(product => <SearchProduct product={product} key={product.id}/>)}
 			</div>
 		}
 	</section>
