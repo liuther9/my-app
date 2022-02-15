@@ -25,6 +25,7 @@
 }
 
 .results {
+	visibility: hidden;
 	width: 100%;
 	max-width: 450px;
 	height: 400px;
@@ -36,4 +37,7 @@
 	padding: 15px;
 	overflow-y: scroll;
 	@include variables.shadow;
+	&.active {
+		visibility: visible;
+	}
 }

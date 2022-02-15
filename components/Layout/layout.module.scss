@@ -1,11 +1,11 @@
 .wrapper {
 	width: 100vw;
-	min-height: calc(100vh - 180px);
 	display: flex;
 	flex-direction: column;
 }
 
 .container {
 	padding: 20px 0;
+	min-height: calc(100vh - 180px);
 	flex: 1;
 }

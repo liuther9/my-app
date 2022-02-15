@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import { useContext, useRef } from 'react'
-import useOnClickOutside from '../../../hooks/useOnClickOutside'
+import { useClickOutside } from '../../../hooks/useClickOutside'
 import AppContext from '../../../store/Context/AppContext'
 import { Product } from '../../../types'
 import s from './productmodal.module.scss'
@@ -15,7 +15,7 @@ const ProductModal:React.FC<Props> = ({ product, showModal, setShowModal }) => {
 	const { addProduct } = useContext(AppContext)
 	const ref = useRef<HTMLDivElement>(null)
 	const buttonRef = useRef<HTMLButtonElement>(null)
-	useOnClickOutside(ref, buttonRef, () => setShowModal(false))
+	useClickOutside([ref, buttonRef], showModal, () => setShowModal(false))
 
 	return <div className={showModal ? `${s.wrapper} + ${s.open}` : s.wrapper}>
 		<div ref={ref} className={s.container}>

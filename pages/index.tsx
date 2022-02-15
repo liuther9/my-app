@@ -8,6 +8,7 @@ import Search from '../components/Search'
 import { Product } from '../types'
 import { GiFullPizza, GiCookie } from 'react-icons/gi'
 import { MdCake } from 'react-icons/md'
+import ProductModal from '../components/ProductComponent/ProductModal'
 
 type Props = {
   children: React.ReactNode,
@@ -17,6 +18,8 @@ type Props = {
 
 const Home: NextPage<Props> = ({data, categories}) => {
   const [products, setProducts] = useState<any[]>([])
+  const [product, setProduct] = useState<Product>()
+	const [showModal, setShowModal] = useState(false)
   const [selectedCategory, setSelectedCategory] = useState<string>('')
 
   const categoryList = [
@@ -43,7 +46,8 @@ const Home: NextPage<Props> = ({data, categories}) => {
 
   return (
     <main className={styles.container}>
-      <Search products={data} />
+		  {product && <ProductModal product={product} showModal={showModal} setShowModal={setShowModal} />}
+      <Search products={data} setShowModal={setShowModal} setProduct={setProduct} />
 
       <div className='spacer'></div>
 
@@ -64,7 +68,14 @@ const Home: NextPage<Props> = ({data, categories}) => {
 
       <section className={styles.main}>
         <div className={styles.main_container}>
-          {products.map(product => <ProductComponent key={product.id} product={product} />)}
+          {products.map(product => 
+            <ProductComponent
+              key={product.id}
+              product={product}
+              setShowModal={setShowModal}
+              setProduct={setProduct}
+            />
+          )}
         </div>
       </section>
 

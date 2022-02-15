@@ -5,10 +5,12 @@ import s from './search.module.scss'
 import SearchProduct from './SearchProduct'
 
 type Props = {
-	products: Product[]
+	products: Product[],
+	setShowModal: any,
+	setProduct: any,
 }
 
-const Search:React.FC<Props> = ({ products }) => {
+const Search:React.FC<Props> = ({ products, setShowModal, setProduct }) => {
 	const [value, setValue] = useState<string>('')
 	const [dropdown, setDropdown] = useState(false)
 	const [filteredResults, setFilteredResults] = useState<Product[]>([])
@@ -39,16 +41,21 @@ const Search:React.FC<Props> = ({ products }) => {
 			onBlur={() => setTimeout(() => !dropdownRef.current?.contains(document.activeElement) && setDropdown(false), 10)}
 		/>
 
-		{dropdown && 
-			<div
-				className={s.results}
-				ref={dropdownRef}
-				tabIndex={0}
-				onBlur={() => setTimeout(() => !inputRef.current?.contains(document.activeElement) && setDropdown(false), 10)}
-			>
-				{filteredResults.map(product => <SearchProduct product={product} key={product.id}/>)}
-			</div>
-		}
+		<div
+			className={dropdown ? `${s.results} ${s.active}` : s.results}
+			ref={dropdownRef}
+			tabIndex={0}
+			onBlur={() => setTimeout(() => !inputRef.current?.contains(document.activeElement) && setDropdown(false), 10)}
+		>
+			{filteredResults.map(product => 
+				<SearchProduct
+					product={product}
+					key={product.id}
+					setShowModal={setShowModal}
+					setProduct={setProduct}
+				/>
+			)}
+		</div>
 	</section>
 }
 

@@ -6,14 +6,18 @@ import s from './searchproduct.module.scss'
 
 type Props = {
 	product: Product,
+	setShowModal: any,
+	setProduct: any,
 }
 
-const SearchProduct: React.FC<Props> = ({ product }) => {
-	const [showModal, setShowModal] = useState(false)
+const SearchProduct: React.FC<Props> = ({ product, setShowModal, setProduct }) => {
+	const showModal = () => {
+		setProduct(product)
+		setShowModal(true)
+	}
 	
 	return <div className={s.product_wrapper} key={product.id}>
-		<ProductModal product={product} showModal={showModal} setShowModal={setShowModal} />
-		<div className={s.product} onClick={() => setShowModal(true)}>
+		<div className={s.product} onClick={showModal}>
 			<div className={s.product_image}>
 				{product.image && <Image src={product.image} layout='fill' objectFit='cover'/>}
 			</div>

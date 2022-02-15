@@ -7,21 +7,22 @@ import ProductModal from './ProductModal'
 
 type Props = {
 	product: Product,
+	setShowModal: any,
+	setProduct: any,
 }
 
-const ProductComponent: React.FC<Props> = React.memo(({product}) => {
+const ProductComponent: React.FC<Props> = React.memo(({ product, setShowModal, setProduct }) => {
 	const { name, price, image, id } = product
-	const [showModal, setShowModal] = useState(false)
 
 	const {cart, addProduct} = useContext(AppContext)
 
+	const showModal = () => {
+		setProduct(product)
+		setShowModal(true)
+	}
+
 	return <div className={styles.product}>
-		<ProductModal
-			product={product}
-			showModal={showModal}
-			setShowModal={setShowModal}
-		/>
-		<div className={styles.image} onClick={() => setShowModal(true)}>
+		<div className={styles.image} onClick={showModal}>
 			{image && <Image alt={name} src={image} layout='fill' objectFit='cover' priority />}
 		</div>
 		<div className={styles.item_info}>
