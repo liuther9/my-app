@@ -36,6 +36,7 @@ const paymentTypes:IPaymentTypes[] = [
 const Cart: NextPage<Props> = ({ user, loggedIn }) => {
 	const [selectedRadio, setSelectedRadio] = useState('')
 	const [pageSwitched, setPageSwitched] = useState(false)
+	const [orderFulfilled, setOrderFulfilled] = useState(false)
 	const [paymentType, setPaymentType] = useState<'cash' |'card'>('cash')
 	const { cart } = useContext(AppContext)
 
@@ -46,13 +47,14 @@ const Cart: NextPage<Props> = ({ user, loggedIn }) => {
   const handleRadioChange = (item: string) => setSelectedRadio(item)
 
 	const submitOrder = async () => {
-		const res = fetchApi('/api/order', {
+		const res = await fetchApi('/api/order', {
 			user_id: user.id,
 			order_list: cart?.items,
 			payment_type: paymentType,
 			address: selectedRadio,
 			total: cart?.total,
 		})
+		res.status === 200 && setOrderFulfilled(true)
 	}
 
 	const nextButtonAction = () => pageSwitched === false ? setPageSwitched(true) : submitOrder()
@@ -60,35 +62,44 @@ const Cart: NextPage<Props> = ({ user, loggedIn }) => {
 	useEffect(() => handleRadioChange(data && data?.at(-1) && data.at(-1).id), [data])
 
 	return <div className={s.wrapper}>
-		<main className={s.container}>
-			<OrderNavigationBar
-				setPageSwitched={setPageSwitched}
-				pageSwitched={pageSwitched}
-				nextButtonAction={nextButtonAction}
-			/>
-			<div style={{position: 'absolute'}} className={!pageSwitched ? s.page + ' ' + s.page_switched : s.page}>
-				<div className={s.payment_container}>
-					{ paymentTypes.map(payment => 
-							<RadioButton
-								label={payment.label}
-								name={payment.name}
-								value={paymentType === payment.name}
-								onChange={() => setPaymentType(payment.name)}
-							/>
-					)}
+		{ !orderFulfilled && 
+			<main className={s.container}>
+				<OrderNavigationBar
+					setPageSwitched={setPageSwitched}
+					pageSwitched={pageSwitched}
+					nextButtonAction={nextButtonAction}
+				/>
+				<div style={{position: 'absolute'}} className={!pageSwitched ? s.page + ' ' + s.page_switched : s.page}>
+					<div className={s.payment_container}>
+						<h2>Способ оплаты:</h2>
+						{ paymentTypes.map(payment => 
+								<RadioButton
+									key={payment.name}
+									label={payment.label}
+									name={payment.name}
+									value={paymentType === payment.name}
+									onChange={() => setPaymentType(payment.name)}
+								/>
+						)}
+					</div>
 				</div>
-			</div>
-			<div className={!pageSwitched ? s.page : s.page + ' ' + s.page_switched}>
-				{ data?.length > 0 && 
-					<AddressList
-						selectedRadio={selectedRadio}
-						handleRadioChange={handleRadioChange}
-						data={data} 
-					/>
-				}
-				<AddressForm id={user.id} mutate={mutate} />
-			</div>
-		</main>
+				<div className={!pageSwitched ? s.page : s.page + ' ' + s.page_switched}>
+					{ data?.length > 0 && 
+						<AddressList
+							selectedRadio={selectedRadio}
+							handleRadioChange={handleRadioChange}
+							data={data} 
+						/>
+					}
+					<AddressForm id={user.id} mutate={mutate} />
+				</div>
+			</main>
+		}
+		{ orderFulfilled && 
+			<main className={s.container}>
+				<h3>Заказ принят!</h3>
+			</main>
+		}
 	</div>
 }
 
