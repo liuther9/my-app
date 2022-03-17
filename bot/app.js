@@ -1,12 +1,9 @@
 const { Markup, Telegraf, Telegram } = require('telegraf')
-
-const token = process.env.BOT_TOKEN;
-
-const telegram = new Telegram(token);
+let token = '5095347305:AAHUpQYNmkqlYIj2-UEq-8FjNZvrVnru-9s';
 
 const bot = new Telegraf(token);
 
-const chatId = process.env.CHAT_ID;
+// const chatId = process.env.CHAT_ID;
 
 bot.start((ctx) => {
   ctx.reply('Hello ' + ctx.from.first_name + '!');
@@ -36,20 +33,20 @@ bot.command('keyboard', (ctx) => {
   );
 });
 
-bot.on('text', (ctx) => {
-  ctx.reply(
-    'You choose the ' +
-      (ctx.message.text === 'first' ? 'First' : 'Second') +
-      ' Option!'
-  );
+// bot.on('text', (ctx) => {
+//   ctx.reply(
+//     'You choose the ' +
+//       (ctx.message.text === 'first' ? 'First' : 'Second') +
+//       ' Option!'
+//   );
 
-  if (chatId) {
-    telegram.sendMessage(
-      chatId,
-      'This message was sent without your interaction!'
-    );
-  }
-});
+//   if (chatId) {
+//     telegram.sendMessage(
+//       chatId,
+//       'This message was sent without your interaction!'
+//     );
+//   }
+// });
 
 bot.launch();
 
