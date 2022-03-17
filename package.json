@@ -2,15 +2,15 @@
   "name": "my-app",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "next dev && node bot/app.js",
+    "build": "next build && node bot/app.js",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
     "@supabase/supabase-js": "^1.28.5",
     "cookie": "^0.4.1",
-    "next": "^12.0.10",
+    "next": "^12.1.0",
     "nprogress": "^0.2.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -19,7 +19,8 @@
     "react-number-format": "^4.9.1",
     "react-yandex-maps": "^4.6.0",
     "sass": "^1.43.4",
-    "swr": "^1.0.1"
+    "swr": "^1.0.1",
+    "telegraf": "^4.7.0"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.1",
