@@ -23,7 +23,8 @@ export default async function handler(req:NextApiRequest, res:NextApiResponse) {
 	const order = data && data[0]
 
 	const sendMessage = `
-		Товар:${order.order_list?.map((item: { name: string; quantity: string | number; }) => `${item.name} ${item.quantity} шт.%0A`)}%0A
+		${order.order_list?.map((item: { name: string; quantity: string | number; }) => `
+		Товар: ${item.name} ${item.quantity} шт.%0A`)}%0A
 		Общая сумма: ${order.total}%0A
 		Адрес: ${order.address}%0A
 		Способ оплаты: ${order.payment_type}%0A
