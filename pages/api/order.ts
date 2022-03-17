@@ -28,7 +28,7 @@ export default async function handler(req:NextApiRequest, res:NextApiResponse) {
 	${order.payed?'Оплачено':'Не оплачено'}%0A
 	Способ оплаты ${order.payment_type}`
 
-	fetch(`https://api.telegram.org/bot5095347305:AAHUpQYNmkqlYIj2-UEq-8FjNZvrVnru-9s/sendMessage?chat_id=695738150&text=${sendMessage}`)
+	await fetch(`https://api.telegram.org/bot5095347305:AAHUpQYNmkqlYIj2-UEq-8FjNZvrVnru-9s/sendMessage?chat_id=695738150&text=${sendMessage}`)
 
 	res.send(data)
 }
