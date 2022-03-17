@@ -1,4 +1,4 @@
-import { Markup, Telegraf, Telegram } from 'telegraf';
+const { Markup, Telegraf, Telegram } = require('telegraf')
 
 const token = process.env.BOT_TOKEN;
 
