@@ -53,7 +53,7 @@ const AddressForm:React.FC<Props> = ({ id, mutate }) => {
 				className={s.button}
 				onClick={() => console.log(getValues(["street", "building", "appartment", "phone"]))}
 			>
-				Добавить
+				Добавить адрес
 			</button>
 		</form>
 	</Fragment>

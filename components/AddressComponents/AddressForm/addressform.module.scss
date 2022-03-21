@@ -24,10 +24,11 @@
 
 .button {
 	align-self: flex-end;
-	margin-right: 20px;
 	padding: 10px;
 	border: 1px solid transparent;
+	border-radius: 5px;
 	background-color: variables.$pink;
+	color: variables.$light-color;
 	cursor: pointer;
 	&:hover, &:active {
 		border: 1px solid rgb(255, 242, 242);

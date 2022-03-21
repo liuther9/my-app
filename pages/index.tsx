@@ -32,7 +32,7 @@ const Home: NextPage<Props> = ({data, categories}) => {
       icon: <GiCookie size={22} color='#b38c24' />,
     },
     {
-      name: 'Пироги',
+      name: 'Торты',
       icon: <MdCake size={22} color='#f7aefa' />,
     },
   ]
@@ -47,6 +47,7 @@ const Home: NextPage<Props> = ({data, categories}) => {
   return (
     <main className={styles.container}>
 		  {product && <ProductModal product={product} showModal={showModal} setShowModal={setShowModal} />}
+      
       <Search products={data} setShowModal={setShowModal} setProduct={setProduct} />
 
       <div className='spacer'></div>
@@ -84,7 +85,7 @@ const Home: NextPage<Props> = ({data, categories}) => {
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  const { data, status, error } = await supabase.from('products').select('id, title, price, name, category, image')
+  const { data, status, error } = await supabase.from('products').select('id, title, price, name, category, description, weight')
 
   const categories = data && Array.from(new Set(data.map(product => product.category)))
   

@@ -3,7 +3,7 @@ import Link from 'next/link'
 import s from './header.module.scss'
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
-import logo from '../../../public/NOOTS-logos/NOOTS-logos_black.png'
+import logo from '../../../public/NOOTS-logos/noots_main_logo.png'
 
 const Header:React.FC = () => {
 	const [menuActive, setMenuActive] = useState(false)
@@ -29,7 +29,7 @@ const Header:React.FC = () => {
 	return <header className={!small ? s.header : `${s.header} ${s.header_small}`}>
 			<Link href='/' passHref={true}>
 				<div className={s.logo}>
-					<Image src={logo} className={s.logo_icon} layout='fill' objectFit='cover' alt='NOOTS'/>
+					<Image src={logo} className={s.logo_icon} layout='fill' objectFit='contain' alt='NOOTS'/>
 				</div>
 			</Link>
 		<div className={!menuActive ? s.burger_btn : `${s.burger_btn} ${s.active}`} onClick={() => setMenuActive(!menuActive)}>

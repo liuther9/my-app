@@ -1,4 +1,3 @@
-import Image from 'next/image'
 import { useRef, useEffect, useState } from 'react'
 import { Product } from '../../types'
 import s from './search.module.scss'

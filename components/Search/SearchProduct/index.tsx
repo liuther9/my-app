@@ -1,6 +1,4 @@
-import { useState } from 'react'
 import { Product } from '../../../types'
-import ProductModal from '../../ProductComponent/ProductModal'
 import Image from 'next/image'
 import s from './searchproduct.module.scss'
 
@@ -11,6 +9,8 @@ type Props = {
 }
 
 const SearchProduct: React.FC<Props> = ({ product, setShowModal, setProduct }) => {
+	const { title, name } = product
+console.log(product)
 	const showModal = () => {
 		setProduct(product)
 		setShowModal(true)
@@ -19,10 +19,10 @@ const SearchProduct: React.FC<Props> = ({ product, setShowModal, setProduct }) =
 	return <div className={s.product_wrapper} key={product.id}>
 		<div className={s.product} onClick={showModal}>
 			<div className={s.product_image}>
-				{product.image && <Image src={product.image} layout='fill' objectFit='cover'/>}
+				<Image src={`/products/${title}-1.webp`} layout='fill' objectFit='cover'/>
 			</div>
 			<div className='spacer'></div>
-			<h4 className={s.product_name}>{product.name}</h4>
+			<h4 className={s.product_name}>{name}</h4>
 		</div>
 	</div>
 }

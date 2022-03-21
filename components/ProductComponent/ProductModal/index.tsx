@@ -15,15 +15,19 @@ const ProductModal:React.FC<Props> = ({ product, showModal, setShowModal }) => {
 	const { addProduct } = useContext(AppContext)
 	const ref = useRef<HTMLDivElement>(null)
 	const buttonRef = useRef<HTMLButtonElement>(null)
+
+	const { weight, name, description, title } = product
+
 	useClickOutside([ref, buttonRef], showModal, () => setShowModal(false))
 
 	return <div className={showModal ? `${s.wrapper} + ${s.open}` : s.wrapper}>
 		<div ref={ref} className={s.container}>
 			<div className={s.image}>
-				{product.image && <Image src={product.image} layout='fill' objectFit='cover' />}
+				<Image src={`/products/${title}-2.webp`} layout='fill' objectFit='cover' />
 			</div>
-			<h4>{product.name}</h4>
-			<p className={s.description}>Темская вкусая еда ешь ее каждый день</p>
+			<h4>{name}</h4>
+			<p className={s.description}>{description}</p>
+			{weight && <p className={s.description}>Вес: {weight} грамм</p>}
 			<button ref={buttonRef} onClick={() => addProduct && addProduct(product)}>Купить</button>
 		</div>
 	</div>
