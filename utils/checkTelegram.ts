@@ -7,7 +7,8 @@ const checkTelegram = ({ auth_date, first_name, username, hash, id }: {id: any, 
 	console.log(data_check_string)
 	const secret_key = sha256(process.env.NEXT_PUBLIC_BOT_TOKEN ? process.env.NEXT_PUBLIC_BOT_TOKEN : '')
 	console.log(process.env.NEXT_PUBLIC_BOT_TOKEN)
-	console.log(hmacSHA512(data_check_string, secret_key).toString(Hex))
+	console.log(hmacSHA512(data_check_string, secret_key))
+	console.log(hash.toString())
 	if (hmacSHA512(data_check_string, secret_key).toString(Hex) == hash) {
 		console.log('LOOGGGGED IN')
 	}
