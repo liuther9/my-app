@@ -6,7 +6,8 @@ export default function TelegramAuth() {
   }
   return (
     <>
-      <Script src="https://telegram.org/js/telegram-widget.js?18" data-telegram-login="nootskz_bot" data-size="large" data-radius="10" data-onauth={onTelegramAuth} strategy="lazyOnload"/>
+      <Script src="https://telegram.org/js/telegram-widget.js?18" data-telegram-login="nootskz_bot" data-size="large" data-radius="10"/>
+			<Script type='text/javascript' />
     </>
   )
 }
