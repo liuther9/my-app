@@ -4,7 +4,7 @@ import { FormEvent, useState } from "react"
 import { supabase } from "../../utils/supabaseClient"
 import s from './auth.module.scss'
 import { ImSpinner } from 'react-icons/im'
-import TelegramAuth from "../../components/TelegramAuth"
+import TelegramLoginButton from "../../components/TelegramLoginButton"
 
 type Props = {
 	user: User,
@@ -31,7 +31,9 @@ const Cart: NextPage<Props> = ({ user, loggedIn }) => {
 		{ !linkSent && !loading &&
 			<form onSubmit={submitForm}>
 				<label>Введите почту чтобы продолжить</label>
-      <TelegramAuth />
+      <TelegramLoginButton botName="nootskz_bot" dataOnauth={(user) => {
+    alert('Logged in as ' + user.first_name + ' ' + ' (' + user.id + (user.username ? ', @' + user.username : '') + ')');
+  }}/>
 				<input type='email' value={email} onChange={e => setEmail(e.target.value)} autoComplete="on" spellCheck="false" autoCorrect="off" placeholder="Почта / Логин" required/>
 				<div className={s.spacer}></div>
 				<button>Далее</button>
