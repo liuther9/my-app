@@ -9,6 +9,7 @@ import { Product } from '../types'
 import { GiFullPizza, GiCookie } from 'react-icons/gi'
 import { MdCake } from 'react-icons/md'
 import ProductModal from '../components/ProductComponent/ProductModal'
+import checkTelegram from '../utils/checkTelegram'
 
 type Props = {
   children: React.ReactNode,
@@ -51,7 +52,7 @@ const Home: NextPage<Props> = ({data, categories}) => {
       <Search products={data} setShowModal={setShowModal} setProduct={setProduct} />
 
       <div className='spacer'></div>
-
+      <button onClick={() => checkTelegram(JSON.parse(localStorage.getItem('user') || ''))}></button>
       <section className={styles.top_menu}>
         <div className={styles.categories_container}>
           {categoryList.map(category => 

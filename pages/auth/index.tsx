@@ -26,7 +26,7 @@ const Cart: NextPage<Props> = ({ user, loggedIn }) => {
 		}
 	}
 
-	const saveUser = (user: any) => typeof window !== 'undefined' && localStorage.setItem(user, JSON.stringify(user))
+	const saveUser = (user: any) => typeof window !== 'undefined' && localStorage.setItem('user', JSON.stringify(user))
 
 	return <div className={s.wrapper}>
 		{ loading && !linkSent && <ImSpinner size={30}/> }
