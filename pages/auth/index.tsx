@@ -26,7 +26,14 @@ const Cart: NextPage<Props> = ({ user, loggedIn }) => {
 		}
 	}
 
-	const saveUser = (user: any) => typeof window !== 'undefined' && localStorage.setItem('user', JSON.stringify(user))
+	const saveUser = async (user: any) => {
+		await fetch('/api/auth', {
+			method: 'POST',
+			headers: new Headers({ 'Content-Type': 'application/json' }),
+			credentials: 'same-origin',
+			body: JSON.stringify(user)
+		})
+	}
 
 	return <div className={s.wrapper}>
 		{ loading && !linkSent && <ImSpinner size={30}/> }
