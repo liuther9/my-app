@@ -29,7 +29,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 				res.status(200).setHeader('Set-Cookie', serialize('tgToken', token, { path: "/" }));
 			}
 		} catch (error) {
-			res.status(402).send(error)
+			res.status(402).send(process.env.JWT_SECRET)
 		}
 		
 		// UPDATE USER
