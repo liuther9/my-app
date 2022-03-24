@@ -17,24 +17,31 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 			res.status(401)
 			res.end('Data is NOT from Telegram')
 		}
-		const user = await supabase.from('USERS').select('*').eq('id', id)
+		try {
+			const user = await supabase.from('USERS').select('*').eq('id', id)
+			// TOKEN SIGN
+			if (!user) {
+				const token = jwt.sign(id, process.env.JWT_SECRET ? process.env.JWT_SECRET : '', { expiresIn: 60*60*24 });
+				res.status(200).setHeader('Set-Cookie', serialize('tgToken', token, { path: "/" }));
+			}
+			if ( (+(new Date()) - auth_date) > 60*60*24) {
+				const token = jwt.sign(id, process.env.JWT_SECRET ? process.env.JWT_SECRET : '', { expiresIn: 60*60*24 });
+				res.status(200).setHeader('Set-Cookie', serialize('tgToken', token, { path: "/" }));
+			}
+		} catch (error) {
+			res.send(error)
+		}
 		
 		// UPDATE USER
-		await supabase.from('USERS').upsert({
-			id,
-			username,
-			first_name,
-			auth_date
-		}, { returning: 'minimal' })
-
-		// TOKEN SIGN
-		if (!user) {
-			const token = jwt.sign(id, process.env.JWT_SECRET ? process.env.JWT_SECRET : '', { expiresIn: 60*60*24 });
-			res.status(200).setHeader('Set-Cookie', serialize('tgToken', token, { path: "/" }));
-		}
-		if ( (+(new Date()) - auth_date) > 60*60*24) {
-			const token = jwt.sign(id, process.env.JWT_SECRET ? process.env.JWT_SECRET : '', { expiresIn: 60*60*24 });
-			res.status(200).setHeader('Set-Cookie', serialize('tgToken', token, { path: "/" }));
+		try {
+			await supabase.from('USERS').upsert({
+				id,
+				username,
+				first_name,
+				auth_date
+			}, { returning: 'minimal' })
+		} catch (error) {
+			res.send(error)
 		}
 	}
 	

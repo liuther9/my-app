@@ -26,21 +26,21 @@ const Cart: NextPage<Props> = ({ user, loggedIn }) => {
 		}
 	}
 
-	const saveUser = async (user: any) => {
-		await fetch('/api/auth', {
-			method: 'POST',
-			headers: new Headers({ 'Content-Type': 'application/json' }),
-			credentials: 'same-origin',
-			body: JSON.stringify(user)
-		})
-	}
+	// const saveUser = async (user: any) => {
+	// 	await fetch('/api/auth', {
+	// 		method: 'POST',
+	// 		headers: new Headers({ 'Content-Type': 'application/json', 'Authorization': `${session?.access_token}` }),
+	// 		credentials: 'same-origin',
+	// 		body: JSON.stringify(user)
+	// 	})
+	// }
 
 	return <div className={s.wrapper}>
 		{ loading && !linkSent && <ImSpinner size={30}/> }
 		{ !linkSent && !loading &&
 			<form onSubmit={submitForm}>
 				<label>Введите почту чтобы продолжить</label>
-      	<TelegramLoginButton botName="nootskz_bot" dataOnauth={saveUser}/>
+      	{/* <TelegramLoginButton botName="nootskz_bot" dataOnauth={saveUser}/> */}
 				<input type='email' value={email} onChange={e => setEmail(e.target.value)} autoComplete="on" spellCheck="false" autoCorrect="off" placeholder="Почта / Логин" required/>
 				<div className={s.spacer}></div>
 				<button>Далее</button>

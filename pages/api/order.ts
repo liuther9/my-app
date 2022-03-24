@@ -41,7 +41,9 @@ export default async function handler(req:NextApiRequest, res:NextApiResponse) {
 		Статус оплаты:${order.payed?'Оплачено':'Не оплачено'}
 	`
 
-	await fetch(`https://api.telegram.org/bot5095347305:AAHUpQYNmkqlYIj2-UEq-8FjNZvrVnru-9s/sendMessage?chat_id=695738150&text=${sendMessage}`)
+	const botToken = process.env.BOT_TOKEN
+
+	await fetch(`https://api.telegram.org/bot${botToken}/sendMessage?chat_id=695738150&text=${sendMessage}`)
 
 	res.send(data)
 }
