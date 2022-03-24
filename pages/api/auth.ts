@@ -15,7 +15,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 		const secret_key = sha256(process.env.BOT_TOKEN ? process.env.BOT_TOKEN : '')
 		if (hmacSHA256(data_check_string, secret_key).toString(Hex) == hash) {
 			res.status(401)
-			res.end('Data is NOT from Telegram')
+			res.end(process.env.BOT_TOKEN)
 		}
 		try {
 			const user = await supabase.from('USERS').select('*').eq('id', id)
