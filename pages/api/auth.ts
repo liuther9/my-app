@@ -29,7 +29,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 				res.status(200).setHeader('Set-Cookie', serialize('tgToken', token, { path: "/" }));
 			}
 		} catch (error) {
-			res.send(error)
+			res.status(401).send(error)
 		}
 		
 		// UPDATE USER
@@ -41,7 +41,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 				auth_date
 			}, { returning: 'minimal' })
 		} catch (error) {
-			res.send(error)
+			res.status(402).send(error)
 		}
 	}
 	
