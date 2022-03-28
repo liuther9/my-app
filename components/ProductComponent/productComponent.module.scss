@@ -1,4 +1,4 @@
-@use '../../styles/variables.scss';
+@use '../../styles/variables.scss' as c;
 .product {
 	display: flex;
 	flex-direction: column;
@@ -9,7 +9,7 @@
 	width: 370px;
 	min-height: 300px;
 	position: relative;
-	@include variables.shadow;
+	@include c.shadow;
 	border-radius: 10px;
 }
 
@@ -23,15 +23,16 @@
 	overflow: hidden;
 }
 
-.name, .price {
+.name, .weight {
 	font-size: 20px;
 	overflow:hidden;
 	min-width: 70px;
 	min-height: 44px;
 }
 
-.price {
+.weight {
 	min-width: 84px;
+	color: c.$pink;
 }
 
 .item {
@@ -42,22 +43,22 @@
 		border-radius: 10px;
 		align-items: center;
 		padding: 10px 0 20px;
-		background: variables.$light-background;
+		background: c.$light-background;
 	}
 	&_about {
 		width: 100%;
 		min-height: 42px;
+		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		display: flex;
 	}
 	&_bottom_container {
 		button {
-			border: 1px solid variables.$pink;
+			border: 1px solid c.$pink;
 			border-radius: 5px;
 			padding: 10px;
 			background-color: transparent;
-			color: variables.$pink;
+			color: c.$pink;
 			transition: all 0.1s;
 			&:active {
 				transform: scale(0.9);
@@ -66,14 +67,38 @@
 	}
 }
 
-@media (max-width: 760px) {
-	.name, .price {
-		font-size: 18px;
+@media (max-width: c.$mobile) {
+	.product {
+		width: 175px;
+		min-height: auto;
 	}
-	.price {
-		font-size: 16px;
+
+	.name, .weight {
+		font-size: c.$small-font;
+		min-width: 60px;
+		min-height: auto;
 	}
+
 	.image {
-		height: 200px;
+		height: 160px;
+		width: 100%;
+		margin-top: 0;
+		border-bottom-left-radius: 0;
+		border-bottom-right-radius: 0;
+	}
+
+	.item {
+		&_info {
+			padding: 0 0 10px;
+		}
+		&_bottom_container {
+			button {
+				font-size: c.$small-font;
+				padding: 5px;
+			}
+		}
+		&_about {
+			min-height: 56px;
+		}
 	}
 }

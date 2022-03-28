@@ -16,7 +16,7 @@ const ProductModal:React.FC<Props> = ({ product, showModal, setShowModal }) => {
 	const ref = useRef<HTMLDivElement>(null)
 	const buttonRef = useRef<HTMLButtonElement>(null)
 
-	const { weight, name, description, title } = product
+	const { weight, name, description, title, price } = product
 
 	useClickOutside([ref, buttonRef], showModal, () => setShowModal(false))
 
@@ -28,7 +28,7 @@ const ProductModal:React.FC<Props> = ({ product, showModal, setShowModal }) => {
 			<h4>{name}</h4>
 			<p className={s.description}>{description}</p>
 			{weight && <p className={s.description}>Вес: {weight} грамм</p>}
-			<button ref={buttonRef} onClick={() => addProduct && addProduct(product)}>Купить</button>
+			<button ref={buttonRef} onClick={() => addProduct && addProduct(product)}>Купить {price} тг</button>
 		</div>
 	</div>
 }

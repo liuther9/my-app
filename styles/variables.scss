@@ -1,12 +1,19 @@
 $light-background: #ffffff;
-$light-hover: rgb(74, 112, 31);
+$light-hover: #3F2537;
 $light-color: #fff;
 $dark-color: #000000;
 $dark-background: #252525;
 $dark-hover: rgb(214, 214, 214);
-$pink: #fd9f9f;
-$light-pink: rgb(255, 233, 252);
+$pink: #ff7785;
+$light-pink: rgb(72, 157, 138);
 $gold: #e0c176;
+
+// FONT SIZES
+$small-font: 13px;
+
+// MEDIA
+$mobile: 768px;
+$tablet: 1180px;
 
 @mixin shadow {
 	-webkit-box-shadow: 0px 0px 20px 0px rgba(69, 126, 169, 0.2);

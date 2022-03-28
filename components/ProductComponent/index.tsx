@@ -11,7 +11,7 @@ type Props = {
 }
 
 const ProductComponent: React.FC<Props> = React.memo(({ product, setShowModal, setProduct }) => {
-	const { name, price, id, title } = product
+	const { name, price, id, title, weight } = product
 
 	const {cart, addProduct} = useContext(AppContext)
 
@@ -27,10 +27,10 @@ const ProductComponent: React.FC<Props> = React.memo(({ product, setShowModal, s
 		<div className={styles.item_info}>
 			<article className={styles.item_about}>
 				<h2 className={styles.name}>{name}</h2>
-				<span className={styles.price}>{price} тг</span>
+				{ weight &&<span className={styles.weight}>{weight} гр</span> }
 			</article>
 			<div className={styles.item_bottom_container}>
-				<button onClick={() => addProduct && addProduct(product)}>Купить</button>
+				<button onClick={() => addProduct && addProduct(product)}>Купить {price} тг</button>
 			</div>
 		</div>
 	</div>

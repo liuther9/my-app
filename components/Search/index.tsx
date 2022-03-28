@@ -1,4 +1,5 @@
 import { useRef, useEffect, useState } from 'react'
+import { GoSearch } from 'react-icons/go'
 import { Product } from '../../types'
 import s from './search.module.scss'
 import SearchProduct from './SearchProduct'
@@ -40,6 +41,7 @@ const Search:React.FC<Props> = ({ products, setShowModal, setProduct }) => {
 			onBlur={() => setTimeout(() => !dropdownRef.current?.contains(document.activeElement) && setDropdown(false), 10)}
 		/>
 
+<GoSearch />
 		<div
 			className={dropdown ? `${s.results} ${s.active}` : s.results}
 			ref={dropdownRef}

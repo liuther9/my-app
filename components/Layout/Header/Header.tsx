@@ -44,6 +44,7 @@ const Header:React.FC = () => {
 			<Link href='/'>Меню</Link>
 			<Link href='/about'>О нас</Link>
 			<Link href='/contacts'>Контакты</Link>
+			<Link href='/delivery'>Доставка</Link>
 		</nav>
 	</header>
 }

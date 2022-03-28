@@ -1,4 +1,4 @@
-@use '../../../styles/variables.scss';
+@use '../../../styles/variables.scss' as c;
 
 .header {
 	z-index: 2;
@@ -7,7 +7,7 @@
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-  background: variables.$light-pink;
+  background: c.$light-pink;
 	position: sticky;
 	.logo {
 		position: relative;
@@ -25,7 +25,7 @@
 		align-items: center;
 		transition: all 0.2s;
 		a {
-			color: variables.$gold;
+			color: c.$gold;
 			margin: 0 20px;
 			font-size: 18px;
 			min-width: 100px;
@@ -33,7 +33,7 @@
       &::after {
         content: '';
         display: block;
-        border-bottom: 1px solid #3b3b3b;
+        border-bottom: 1px solid c.$gold;
         transform: scaleX(0);
         transition: all 0.2s;
       }
@@ -47,7 +47,7 @@
 		justify-content: space-between;
 		position: sticky;
 		top: 0;
-		background: linear-gradient(to bottom, rgb(255, 233, 252) 0%, rgb(255, 233, 252) 45%, rgba(255, 233, 252, 0.9) 90%, rgba(255, 233, 252, 0) 100%);
+		background: linear-gradient(to bottom, c.$light-pink 0%, c.$light-pink 45%, c.$light-pink 90%, rgba(255, 233, 252, 0) 100%);
 		.logo {
 			animation-name: appear;
 			animation-duration: 0.8s;
@@ -72,7 +72,7 @@
 		display: block;
 		width: 100%;
 		height: 3px;
-		background-color: variables.$gold;
+		background-color: c.$gold;
 		background-size: cover;
 		margin-bottom: 1px;
 		border-radius: 3px;
@@ -97,7 +97,7 @@
 	}
 }
 
-@media (max-width: 760px) {
+@media (max-width: c.$mobile) {
 	.header {
 		min-height: auto;
 		.logo {
@@ -117,7 +117,7 @@
 			top: 0;
 			flex-direction: column;
 			transform: translateX(100%);
-			background: variables.$light-background;
+			background: c.$light-background;
 			a {
 				margin: 5px 10px;
 			}

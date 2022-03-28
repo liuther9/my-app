@@ -1,15 +1,14 @@
 import type { NextPage } from 'next'
 import { GetStaticProps } from 'next'
 import { useCallback, useEffect, useState } from 'react'
-import styles from '../styles/Home.module.scss'
+import { GiCookie } from 'react-icons/gi'
+import { MdCake } from 'react-icons/md'
 import { supabase } from '../utils/supabaseClient'
 import ProductComponent from '../components/ProductComponent'
 import Search from '../components/Search'
-import { Product } from '../types'
-import { GiFullPizza, GiCookie } from 'react-icons/gi'
-import { MdCake } from 'react-icons/md'
 import ProductModal from '../components/ProductComponent/ProductModal'
-import checkTelegram from '../utils/checkTelegram'
+import { Product } from '../types'
+import styles from '../styles/Home.module.scss'
 
 type Props = {
   children: React.ReactNode,
@@ -23,27 +22,29 @@ const Home: NextPage<Props> = ({data, categories}) => {
 	const [showModal, setShowModal] = useState(false)
   const [selectedCategory, setSelectedCategory] = useState<string>('')
 
+  // CATEGORIES
   const categoryList = [
     {
-      name: 'Пицца',
-      icon: <GiFullPizza size={22} color='#f0be62' />,
+      name: 'Торты',
+      icon: <MdCake size={22} color='#f7aefa' />,
     },
     {
       name: 'Десерты',
       icon: <GiCookie size={22} color='#b38c24' />,
     },
-    {
-      name: 'Торты',
-      icon: <MdCake size={22} color='#f7aefa' />,
-    },
   ]
 
-  const filterProducts = useCallback((category: string) => {
+  // MEMOIZED SETSTATE
+  const openModal = useCallback((open) => setShowModal(open), [])
+  const chooseProductModal = useCallback((product) => setProduct(product), [])
+
+  // FILTERING DISPLAYED PRODUCTS
+  const filterProducts = (category: string) => {
     setSelectedCategory(category)
     setProducts(data.filter(product => product.category === category))
-  }, [data])
+  }
 
-  useEffect(() => filterProducts(categories[1]), [categories, filterProducts])
+  useEffect(() => filterProducts(categories[0]), [categories])
 
   return (
     <main className={styles.container}>
@@ -52,10 +53,9 @@ const Home: NextPage<Props> = ({data, categories}) => {
       <Search products={data} setShowModal={setShowModal} setProduct={setProduct} />
 
       <div className='spacer'></div>
-      <button onClick={() => checkTelegram(JSON.parse(localStorage.getItem('user') || ''))}></button>
       <section className={styles.top_menu}>
         <div className={styles.categories_container}>
-          {categoryList.map(category => 
+          {categoryList.map(category =>
             <button
               key={category.name}
               onClick={() => filterProducts(category.name)}
@@ -74,8 +74,8 @@ const Home: NextPage<Props> = ({data, categories}) => {
             <ProductComponent
               key={product.id}
               product={product}
-              setShowModal={setShowModal}
-              setProduct={setProduct}
+              setShowModal={openModal}
+              setProduct={chooseProductModal}
             />
           )}
         </div>

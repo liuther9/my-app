@@ -1,4 +1,4 @@
-@use '../../../styles/variables.scss';
+@use '../../../styles/variables.scss' as c;
 
 .wrapper {
 	z-index: 3;
@@ -8,7 +8,7 @@
 	height: 100vh;
 	min-height: 100vh;
 	min-width: 100vw;
-	background: #535353a6;
+	background: #000000c7;
 	display: none;
 	&.open {
 		display: flex;
@@ -32,11 +32,11 @@
 		margin-bottom: 20px;
 	}
 	button {
-		border: 1px solid variables.$pink;
+		border: 1px solid c.$pink;
 		border-radius: 5px;
 		padding: 10px;
 		background-color: transparent;
-		color: variables.$pink;
+		color: c.$pink;
 		transition: all 0.1s;
 		&:active {
 			transform: scale(0.9);
@@ -58,7 +58,7 @@
 
 }
 
-@media (max-width: 760px) {
+@media (max-width: c.$mobile) {
 	.container {
 		width: 90%;
 		height: 70%;
