@@ -8,6 +8,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@hookform/resolvers": "^2.8.8",
     "@supabase/supabase-js": "^1.28.5",
     "cookie": "^0.4.1",
     "crypto-js": "^4.1.1",
@@ -22,7 +23,8 @@
     "react-yandex-maps": "^4.6.0",
     "sass": "^1.43.4",
     "swr": "^1.0.1",
-    "telegraf": "^4.7.0"
+    "telegraf": "^4.7.0",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.1",
