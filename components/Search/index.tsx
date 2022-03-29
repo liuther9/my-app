@@ -40,8 +40,7 @@ const Search:React.FC<Props> = ({ products, setShowModal, setProduct }) => {
 			onFocus={() => value.length > 0 && setDropdown(true)}
 			onBlur={() => setTimeout(() => !dropdownRef.current?.contains(document.activeElement) && setDropdown(false), 10)}
 		/>
-
-<GoSearch />
+		<GoSearch />
 		<div
 			className={dropdown ? `${s.results} ${s.active}` : s.results}
 			ref={dropdownRef}

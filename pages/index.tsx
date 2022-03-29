@@ -9,6 +9,8 @@ import Search from '../components/Search'
 import ProductModal from '../components/ProductComponent/ProductModal'
 import { Product } from '../types'
 import styles from '../styles/Home.module.scss'
+import siteMetadata from '../components/HeadSeo/siteMetaData'
+import HeadSeo from '../components/HeadSeo'
 
 type Props = {
   children: React.ReactNode,
@@ -48,6 +50,12 @@ const Home: NextPage<Props> = ({data, categories}) => {
 
   return (
     <main className={styles.container}>
+    <HeadSeo
+      title={`Лучшие торты Астана Noots кондитерская`}
+      description={`Вкусные торты в Нурсултане по лучшим ценам. Закажите прямо сейчас.`}
+      canonicalUrl={siteMetadata.siteUrl}
+      ogType={"website"}
+    />
 		  {product && <ProductModal product={product} showModal={showModal} setShowModal={setShowModal} />}
       
       <Search products={data} setShowModal={setShowModal} setProduct={setProduct} />

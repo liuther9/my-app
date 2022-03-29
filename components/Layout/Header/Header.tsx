@@ -27,11 +27,11 @@ const Header:React.FC = () => {
   }, []);
 
 	return <header className={!small ? s.header : `${s.header} ${s.header_small}`}>
-			<Link href='/' passHref={true}>
-				<div className={s.logo}>
-					<Image src={logo} className={s.logo_icon} layout='fill' objectFit='contain' alt='NOOTS'/>
-				</div>
-			</Link>
+		<Link href='/' passHref={true}>
+			<div className={s.logo}>
+				<Image src={logo} className={s.logo_icon} layout='fill' objectFit='contain' alt='NOOTS'/>
+			</div>
+		</Link>
 		<div className={!menuActive ? s.burger_btn : `${s.burger_btn} ${s.active}`} onClick={() => setMenuActive(!menuActive)}>
 			<i />
 		</div>
