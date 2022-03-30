@@ -25,6 +25,15 @@
 		&:focus {
 			outline: 1px solid lightblue;
 		}
+		&[aria-invalid='true'], &[aria-invalid='true']:focus ,&[aria-invalid='true']:focus:hover {
+			border: 1px solid c.$red;
+			&:focus {
+				outline: 1px solid c.$red;
+			}
+			&::placeholder {
+				color: c.$red;
+			}
+		}
 	}
 	form {
 		display: flex;

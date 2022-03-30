@@ -23,11 +23,11 @@ interface VerifyInputs extends Inputs {
 
 const Cart: NextPage<Props> = ({ user, loggedIn }) => {
 	const [verify, setVerify] = useState(false)
-	const [linkSent, setLinkSent] = useState(false)
 	const [loading, setLoading] = useState(false)
 
   const router = useRouter()
 
+	// VALIDATE PHONE NUMBER
 	const validationSchema = Yup.object().shape({
 			phone: Yup.string()
 					.transform(currentValue => currentValue.replaceAll(' ', ''))
@@ -37,8 +37,10 @@ const Cart: NextPage<Props> = ({ user, loggedIn }) => {
 	const formOptions = {
 		resolver: yupResolver(validationSchema),
 	}
+	
   const { handleSubmit, formState: { errors }, control, reset, getValues } = useForm<any>(formOptions);
 
+	// SUBMIT PHONE NUMBER
 	const onSubmit: SubmitHandler<Inputs> = async data => {
 		setLoading(true)
 		let { user, error } = await supabase.auth.signIn({
@@ -48,6 +50,7 @@ const Cart: NextPage<Props> = ({ user, loggedIn }) => {
 		!error && setVerify(true)
 	}
 
+	// SUBMIT PHONE NUMBER AND SMS OTP
 	const verifySubmit: SubmitHandler<VerifyInputs> = async data => {
 		setLoading(true)
 		let { session, error } = await supabase.auth.verifyOTP({
@@ -60,8 +63,8 @@ const Cart: NextPage<Props> = ({ user, loggedIn }) => {
 	}
 
 	return <div className={s.wrapper}>
-		{ loading && !linkSent && <ImSpinner size={30}/> }
-		{ !linkSent && !loading &&
+		{ loading && <ImSpinner size={30}/> }
+		{ !loading &&
 			<form onSubmit={!verify ? handleSubmit(onSubmit) : handleSubmit(verifySubmit)}>
 				<label>Введите номер телефона</label>
 				{ !verify && <Controller
@@ -98,14 +101,10 @@ const Cart: NextPage<Props> = ({ user, loggedIn }) => {
 						/>
 					)}
 				/>}
-				{errors.phone && <p>{errors.phone?.message}</p>}
 				
 				<div className={s.spacer}></div>
 				<button>Далее</button>
 			</form>
-		}
-		{ linkSent && !loading &&
-			<p>Ссылка для входа в профиль отправлена. Проверьте вашу почту...</p>
 		}
 	</div>
 }

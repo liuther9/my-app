@@ -1,5 +1,7 @@
 const Delivery = () => {
-	return <div></div>
+	return <div>
+		<p>Страница находится в разработке</p>
+	</div>
 }
 
 export default Delivery
