@@ -1,4 +1,4 @@
-@use '../../styles/variables.scss';
+@use '../../styles/variables.scss' as c;
 .container {
   display: flex;
 	align-items: center;
@@ -34,15 +34,15 @@
 }
 
 .container input:checked ~ .checkmark {
-  background-color: variables.$pink;
+  background-color: c.$light-pink;
 }
 
 .checkmark:after {
   content: "";
   position: absolute;
   display: none;
-	top: 9px;
-	left: 9px;
+	top: 8.5px;
+	left: 8.5px;
 	width: 8px;
 	height: 8px;
 	border-radius: 50%;

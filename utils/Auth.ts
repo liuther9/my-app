@@ -17,7 +17,8 @@ const Auth = () => {
 			async (event, session) => {
 				await setServerSession(event, session)
 				setSession(session)
-			})
+			}
+		)
 
 		return () => authListener?.unsubscribe()
 	}, [])

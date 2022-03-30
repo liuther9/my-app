@@ -1,11 +1,15 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { supabase } from "../../utils/supabaseClient";
+import cookie from 'cookie'
 
 export default async function handler(req:NextApiRequest, res:NextApiResponse) {
+	// GET TOKEN
+  let cookies = cookie.parse(req.headers.cookie || '')
+	let token = cookies['sb-access-token']
+
 	if(req.method === 'POST') {
 		const { address, phone, user_id } = req.body
-		const JWT = req.headers.authorization
-		supabase.auth.setAuth(JWT ? JWT : '')
+		supabase.auth.setAuth(token)
 
 		const { data, error } = await supabase.from('USER_INFO').insert(
 			[

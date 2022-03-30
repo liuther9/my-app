@@ -2,14 +2,15 @@ import { User } from "@supabase/supabase-js"
 import { GetServerSideProps, NextPage } from "next"
 import { useContext, useEffect, useState } from "react"
 import useSWR, { useSWRConfig } from "swr"
+import { useRouter } from 'next/router'
+import { fetchApi } from "../../api"
+import { supabase } from "../../utils/supabaseClient"
 import AddressForm from "../../components/AddressComponents/AddressForm"
 import AddressList from "../../components/AddressComponents/AddressList"
-import AppContext from "../../store/Context/AppContext"
 import OrderNavigationBar from "../../components/OrderNavigationBar"
 import RadioButton from "../../components/RadioButton"
-import { supabase } from "../../utils/supabaseClient"
+import AppContext from "../../store/Context/AppContext"
 import s from './cart.module.scss'
-import { fetchApi } from "../../api"
 
 type Props = {
 	user: User,
@@ -26,18 +27,16 @@ const paymentTypes:IPaymentTypes[] = [
 		name: 'cash',
 		label: 'Оплата наличными',
 	},
-	{
-		name: 'card',
-		label: 'Оплата картой',
-	},
 ]
 
 
 const Cart: NextPage<Props> = ({ user, loggedIn }) => {
 	const [selectedRadio, setSelectedRadio] = useState('')
 	const [pageSwitched, setPageSwitched] = useState(false)
-	const [orderFulfilled, setOrderFulfilled] = useState(false)
 	const [paymentType, setPaymentType] = useState<'cash' |'card'>('cash')
+
+  const router = useRouter()
+
 	const { cart } = useContext(AppContext)
 
   const { mutate } = useSWRConfig()
@@ -54,52 +53,46 @@ const Cart: NextPage<Props> = ({ user, loggedIn }) => {
 			address: selectedRadio,
 			total: cart?.total,
 		})
-		res.status === 200 && setOrderFulfilled(true)
+		res.status === 200 && router.push('/orderinfo')
 	}
 
 	const nextButtonAction = () => pageSwitched === false ? setPageSwitched(true) : submitOrder()
 
-	useEffect(() => handleRadioChange(data && data?.at(-1) && data.at(-1).id), [data])
+	useEffect(() => handleRadioChange((data && data.length > 0 && data?.at(-1)) ? data.at(-1).id : ''), [data])
 
 	return <div className={s.wrapper}>
-		{ !orderFulfilled && 
-			<main className={s.container}>
-				<OrderNavigationBar
-					setPageSwitched={setPageSwitched}
-					pageSwitched={pageSwitched}
-					nextButtonAction={nextButtonAction}
-				/>
-				<div style={{position: 'absolute'}} className={!pageSwitched ? s.page + ' ' + s.page_switched : s.page}>
-					<div className={s.payment_container}>
-						<h2>Способ оплаты:</h2>
-						{ paymentTypes.map(payment => 
-								<RadioButton
-									key={payment.name}
-									label={payment.label}
-									name={payment.name}
-									value={paymentType === payment.name}
-									onChange={() => setPaymentType(payment.name)}
-								/>
-						)}
-					</div>
+		<main className={s.container}>
+			<OrderNavigationBar
+				setPageSwitched={setPageSwitched}
+				pageSwitched={pageSwitched}
+				nextButtonAction={nextButtonAction}
+				addressSelected={selectedRadio.length > 0}
+			/>
+			<div style={{ position: 'absolute' }} className={!pageSwitched ? s.page + ' ' + s.page_switched : s.page}>
+				<div className={s.payment_container}>
+					<h2>Способ оплаты:</h2>
+					{ paymentTypes.map(payment => 
+							<RadioButton
+								key={payment.name}
+								label={payment.label}
+								name={payment.name}
+								value={paymentType === payment.name}
+								onChange={() => setPaymentType(payment.name)}
+							/>
+					)}
 				</div>
-				<div className={!pageSwitched ? s.page : s.page + ' ' + s.page_switched}>
-					{ data?.length > 0 && 
-						<AddressList
-							selectedRadio={selectedRadio}
-							handleRadioChange={handleRadioChange}
-							data={data} 
-						/>
-					}
-					<AddressForm id={user.id} mutate={mutate} />
-				</div>
-			</main>
-		}
-		{ orderFulfilled && 
-			<main className={s.container}>
-				<h3>Заказ принят!</h3>
-			</main>
-		}
+			</div>
+			<div className={!pageSwitched ? s.page : s.page + ' ' + s.page_switched}>
+				{ data?.length > 0 && 
+					<AddressList
+						selectedRadio={selectedRadio}
+						handleRadioChange={handleRadioChange}
+						data={data} 
+					/>
+				}
+				<AddressForm id={user.id} mutate={mutate} />
+			</div>
+		</main>
 	</div>
 }
 

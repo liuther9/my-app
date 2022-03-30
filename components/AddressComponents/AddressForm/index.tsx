@@ -11,11 +11,11 @@ type Props = {
 }
 
 const AddressForm:React.FC<Props> = ({ id, mutate }) => {
-  const { register, handleSubmit, getValues, control, reset } = useForm();
+  const { register, handleSubmit, getValues, control, reset, formState: { errors } } = useForm();
 
 	const onSubmit = async () => {
 		const session = supabase.auth.session()
-		const values = getValues(["street", "building", "appartment", "phone"])
+		const values = await getValues(["street", "building", "appartment", "phone"])
 		const res = await fetch('/api/address', {
 			method: 'POST',
 			headers: new Headers({ 'Content-Type': 'application/json', 'Authorization': `${session?.access_token}` }),
@@ -31,12 +31,25 @@ const AddressForm:React.FC<Props> = ({ id, mutate }) => {
 		<form onSubmit={handleSubmit(onSubmit)} className={s.form}>
 			<label>Новый адрес</label>
 			<div className="spacer"></div>
-			<input  {...register("street", { minLength: {value: 1, message: 'Обязательное поле'}, required: true })} placeholder="Улица"/>
+			<input
+				{...register("street", { minLength: {value: 1}, required: true })}
+				placeholder="Улица"
+				aria-invalid={errors.street ? 'true' : 'false'}
+			/>
 			<div className="spacer"></div>
+
 			<div className={s.address_details}>
-				<input {...register("building", { minLength: {value: 1, message: 'Обязательное поле'}, required: true })} placeholder="Дом"/>
+				<input
+					{...register("building", { minLength: {value: 1}, required: true })}
+					placeholder="Дом"
+					aria-invalid={errors.building? 'true' : 'false'}
+				/>
 				<div className="spacer"></div>
-				<input {...register("appartment", { required: false })} placeholder="Квартира"/>
+
+				<input
+					{...register("appartment", { required: false })}
+					placeholder="Квартира"
+				/>
 			</div>
 			<div className="spacer"></div>
 			<Controller
@@ -46,7 +59,19 @@ const AddressForm:React.FC<Props> = ({ id, mutate }) => {
 					required: true,
 					minLength: 17,
 				}}
-				render={({ field: {ref, value, onChange} }) => <NumberFormat ref={ref} value={value} onChange={onChange} format="+7 (###) ###-####" mask="" placeholder="+7 (###) ###-####"/>}
+				render={({ field: {ref, value, onChange} }) => {
+					return (
+						<NumberFormat
+							ref={ref}
+							value={value}
+							onChange={onChange}
+							format="+7 (###) ###-####"
+							mask=""
+							placeholder="+7 (###) ###-####"
+							aria-invalid={errors.phone ? 'true' : 'false'}
+						/>
+					)
+				}}
 			/>
 			<div className="spacer"></div>
 			<button

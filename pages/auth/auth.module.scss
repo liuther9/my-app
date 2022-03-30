@@ -1,4 +1,4 @@
-@use '../../styles/variables.scss';
+@use '../../styles/variables.scss' as c;
 
 .wrapper {
 	display: flex;
@@ -11,13 +11,20 @@
 		text-align: center;
 	}
 	input {
-		border: 1px solid transparent;
+		border: 1px solid c.$dark-hover;
 		border-radius: 5px;
 		text-align: center;
-		background: #ff6dbd36;
+		background: c.$light-pink;
+		color: c.$light-color;
 		padding: 10px;
 		width: 250px;
 		outline: none;
+		&::placeholder {
+			color: c.$dark-hover;
+		}
+		&:focus {
+			outline: 1px solid lightblue;
+		}
 	}
 	form {
 		display: flex;
@@ -32,7 +39,7 @@
 		background-color: transparent;
 		transition: ease-in-out 0.1s;
 		&:hover {
-			border: 1px solid variables.$dark-color;
+			border: 1px solid c.$dark-color;
 		}
 		&:active {
 			transform: scale(0.95);

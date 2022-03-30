@@ -10,21 +10,21 @@
 		display: flex;
 		align-items: center;
 		border: 1px solid transparent;
-		background-color: c.$pink;
+		background-color: c.$light-pink;
 		border-radius: 50px;
 		padding: 10px;
 		height: auto;
-		color: c.$light-color;
+		color: c.$gold;
 		transition: ease-in 0.1s;
 		&:active {
 			transform: scale(0.9);
 		}
 		&:disabled {
 			transform: none;
-			color: grey;
+			color: c.$dark-gold;
 			cursor: not-allowed;
 			svg {
-				fill: grey;
+				fill: c.$dark-gold;
 			}
 		}
 	}
