@@ -37,7 +37,7 @@ const Cart: NextPage<Props> = ({ user, loggedIn }) => {
 
   const router = useRouter()
 
-	const { cart } = useContext(AppContext)
+	const { cart, clearCart } = useContext(AppContext)
 
   const { mutate } = useSWRConfig()
 	const fetcher = (url: string) => fetch(url + `?id=${user.id}`).then((res) => res.json());
@@ -53,7 +53,10 @@ const Cart: NextPage<Props> = ({ user, loggedIn }) => {
 			address: selectedRadio,
 			total: cart?.total,
 		})
-		res.status === 200 && router.push('/orderinfo')
+		if (res.status === 200) {
+			clearCart()
+			router.push('/orderinfo')
+		}
 	}
 
 	const nextButtonAction = () => pageSwitched === false ? setPageSwitched(true) : submitOrder()
