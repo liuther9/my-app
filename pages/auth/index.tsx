@@ -7,7 +7,6 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm, Controller, SubmitHandler } from 'react-hook-form'
 import NumberFormat from 'react-number-format'
 import { ImSpinner } from 'react-icons/im'
-import TelegramLoginButton from "../../components/TelegramLoginButton"
 import { supabase } from "../../utils/supabaseClient"
 import s from './auth.module.scss'
 

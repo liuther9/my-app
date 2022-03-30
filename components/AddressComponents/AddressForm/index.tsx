@@ -32,7 +32,7 @@ const AddressForm:React.FC<Props> = ({ id, mutate }) => {
 			<label>Новый адрес</label>
 			<div className="spacer"></div>
 			<input
-				{...register("street", { minLength: {value: 1}, required: true })}
+				{...register("street", { minLength: 1, required: true })}
 				placeholder="Улица"
 				aria-invalid={errors.street ? 'true' : 'false'}
 			/>
@@ -40,7 +40,7 @@ const AddressForm:React.FC<Props> = ({ id, mutate }) => {
 
 			<div className={s.address_details}>
 				<input
-					{...register("building", { minLength: {value: 1}, required: true })}
+					{...register("building", { minLength: 1, required: true })}
 					placeholder="Дом"
 					aria-invalid={errors.building? 'true' : 'false'}
 				/>
