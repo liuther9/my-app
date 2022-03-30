@@ -23,7 +23,7 @@ const ProductModal:React.FC<Props> = ({ product, showModal, setShowModal }) => {
 	return <div className={showModal ? `${s.wrapper} + ${s.open}` : s.wrapper}>
 		<div ref={ref} className={s.container}>
 			<div className={s.image}>
-				<Image src={`/products/${title}-2.webp`} layout='fill' placeholder='blur' blurDataURL={`/products/${title}-1.webp`} objectFit='cover' />
+				<Image src={`/products/${title}-2.webp`} layout='fill' objectFit='cover' />
 			</div>
 			<h4>{name}</h4>
 			<p className={s.description}>{description}</p>

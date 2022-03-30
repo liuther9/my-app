@@ -22,7 +22,7 @@ const ProductComponent: React.FC<Props> = React.memo(({ product, setShowModal, s
 
 	return <div className={styles.product}>
 		<div className={styles.image} onClick={showModal}>
-			{<Image alt={name} src={`/products/${title}-1.webp`} layout='fill' objectFit='cover' placeholder='blur' blurDataURL={`/products/${title}-1.webp`} priority />}
+			{<Image alt={name} src={`/products/${title}-1.webp`} layout='fill' objectFit='cover' priority />}
 		</div>
 		<div className={styles.item_info}>
 			<article className={styles.item_about}>
