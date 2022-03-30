@@ -54,7 +54,7 @@ const Cart: NextPage<Props> = ({ user, loggedIn }) => {
 			total: cart?.total,
 		})
 		if (res.status === 200) {
-			clearCart()
+			clearCart && clearCart()
 			router.push('/orderinfo')
 		}
 	}
