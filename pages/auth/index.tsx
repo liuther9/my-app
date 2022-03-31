@@ -59,7 +59,6 @@ const Cart: NextPage<Props> = ({ user, loggedIn }) => {
 			phone,
 			token,
 		})
-		setLoading(false)
 		!error && router.push('/cart')
 	}
 
