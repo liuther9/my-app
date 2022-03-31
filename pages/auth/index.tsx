@@ -105,7 +105,7 @@ const Cart: NextPage<Props> = ({ user, loggedIn }) => {
 				/>}
 				
 				<div className={s.spacer}></div>
-				<button>Далее</button>
+				<button type="submit">Далее</button>
 			</form>
 		}
 	</div>
