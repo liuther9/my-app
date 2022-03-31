@@ -50,7 +50,7 @@ const Cart: NextPage<Props> = ({ user, loggedIn }) => {
 		!error && setVerify(true)
 	}
 
-	// SUBMIT PHONE NUMBER AND SMS OTP
+	// SUBMIT PHONE NUMBER AND SMS OTP //
 	const verifySubmit: SubmitHandler<VerifyInputs> = async data => {
 		setLoading(true)
 		let { session, error } = await supabase.auth.verifyOTP({
