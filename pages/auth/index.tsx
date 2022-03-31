@@ -64,12 +64,10 @@ const Cart: NextPage<Props> = ({ user, loggedIn }) => {
 
 	return <div className={s.wrapper}>
 		{ loading && <ImSpinner size={30}/> }
-		{ !loading &&
-			<form onSubmit={!verify ? handleSubmit(onSubmit) : handleSubmit(verifySubmit)}>
-				<label>
-					{ !verify ? 'Введите номер телефона' : 'Введите СМС код' }
-				</label>
-				{ !verify && <Controller
+		{ !loading && !verify &&
+			<form onSubmit={handleSubmit(onSubmit)}>
+				<label>Введите номер телефона</label>
+				<Controller
 					control={control}
 					name='phone'
 					render={({ field: { onChange, onBlur, ref, value } }) => (
@@ -85,8 +83,15 @@ const Cart: NextPage<Props> = ({ user, loggedIn }) => {
 							aria-invalid={errors.phone ? 'true' : 'false'}
 						/>
 					)}
-				/>}
-				{ verify && <Controller
+				/>
+				<div className={s.spacer}></div>
+				<button type="submit">Далее</button>
+			</form>
+		}
+		{ !loading && verify &&
+			<form onSubmit={handleSubmit(verifySubmit)}>
+				<label>Введите СМС код</label>
+				<Controller
 					control={control}
 					name='token'
 					render={({ field: { onChange, onBlur, ref, value } }) => (
@@ -102,8 +107,7 @@ const Cart: NextPage<Props> = ({ user, loggedIn }) => {
 							aria-invalid={errors.token ? 'true' : 'false'}
 						/>
 					)}
-				/>}
-				
+				/>
 				<div className={s.spacer}></div>
 				<button type="submit">Далее</button>
 			</form>
