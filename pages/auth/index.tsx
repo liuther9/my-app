@@ -66,7 +66,9 @@ const Cart: NextPage<Props> = ({ user, loggedIn }) => {
 		{ loading && <ImSpinner size={30}/> }
 		{ !loading &&
 			<form onSubmit={!verify ? handleSubmit(onSubmit) : handleSubmit(verifySubmit)}>
-				<label>Введите номер телефона</label>
+				<label>
+					{ !verify ? 'Введите номер телефона' : 'Введите СМС код' }
+				</label>
 				{ !verify && <Controller
 					control={control}
 					name='phone'
