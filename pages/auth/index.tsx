@@ -42,9 +42,10 @@ const Cart: NextPage<Props> = ({ user, loggedIn }) => {
 
 	// SUBMIT PHONE NUMBER
 	const onSubmit: SubmitHandler<Inputs> = async data => {
+		const { phone } = data
 		setLoading(true)
 		let { user, error } = await supabase.auth.signIn({
-			phone: getValues('phone'),
+			phone,
 		})
 		setLoading(false)
 		!error && setVerify(true)
@@ -52,13 +53,14 @@ const Cart: NextPage<Props> = ({ user, loggedIn }) => {
 
 	// SUBMIT PHONE NUMBER AND SMS OTP //
 	const verifySubmit: SubmitHandler<VerifyInputs> = async data => {
+		const { phone, token } = data
 		setLoading(true)
 		let { session, error } = await supabase.auth.verifyOTP({
-			phone: getValues('phone'),
-			token: getValues('token'),
+			phone,
+			token,
 		})
 		setLoading(false)
-		router.push('/cart')
+		!error && router.push('/cart')
 	}
 
 	return <div className={s.wrapper}>
