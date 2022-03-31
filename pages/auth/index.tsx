@@ -58,8 +58,7 @@ const Cart: NextPage<Props> = ({ user, loggedIn }) => {
 			token: getValues('token'),
 		})
 		setLoading(false)
-		!error && reset({ phone: '' })
-		!error && router.push('/cart')
+		router.push('/cart')
 	}
 
 	return <div className={s.wrapper}>
