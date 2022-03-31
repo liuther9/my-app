@@ -74,10 +74,7 @@ const AddressForm:React.FC<Props> = ({ id, mutate }) => {
 				}}
 			/>
 			<div className="spacer"></div>
-			<button
-				className={s.button}
-				onClick={() => console.log(getValues(["street", "building", "appartment", "phone"]))}
-			>
+			<button className={s.button}>
 				Добавить адрес
 			</button>
 		</form>
