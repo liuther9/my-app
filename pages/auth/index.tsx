@@ -38,7 +38,7 @@ const Cart: NextPage<Props> = ({ user, loggedIn }) => {
 		resolver: yupResolver(validationSchema),
 	}
 	
-  const { handleSubmit, formState: { errors }, control, reset, getValues } = useForm<any>(formOptions);
+  const { handleSubmit, formState: { errors }, control } = useForm<any>(formOptions);
 
 	// SUBMIT PHONE NUMBER
 	const onSubmit: SubmitHandler<Inputs> = async data => {
