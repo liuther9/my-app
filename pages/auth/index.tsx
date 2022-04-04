@@ -77,7 +77,7 @@ const Cart: NextPage<Props> = ({ user, loggedIn }) => {
 		{ loading && <ImSpinner size={30}/> }
 		{ !loading && !verify &&
 			<form onSubmit={handleSubmit(emailSubmit)}>
-				<label>Введите номер телефона</label>
+				<label>Введите почту для регистрации</label>
 				<input type='email' placeholder="Введите почту" {...register('email', { required: true })} aria-invalid={errors.email ? 'true' : 'false'} />
 				<div className={s.spacer}></div>
 				<button type="submit">Далее</button>
