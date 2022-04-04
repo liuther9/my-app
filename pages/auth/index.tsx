@@ -37,34 +37,58 @@ const Cart: NextPage<Props> = ({ user, loggedIn }) => {
 	const formOptions = {
 		resolver: yupResolver(validationSchema),
 	}
-	
-  const { handleSubmit, formState: { errors }, control } = useForm<any>(formOptions);
 
-	// SUBMIT PHONE NUMBER
-	const onSubmit: SubmitHandler<Inputs> = async data => {
-		const { phone } = data
+	// EMAIL SUBMIT
+  const { handleSubmit, formState: { errors }, register } = useForm<any>();
+	const emailSubmit = async ({ email }: { email: string }) => {
 		setLoading(true)
-		let { user, error } = await supabase.auth.signIn({
-			phone,
+		let res = await supabase.auth.signIn({
+			email
 		})
 		setLoading(false)
-		!error && setVerify(true)
+		setVerify(true)
 	}
 
+  // const { handleSubmit, formState: { errors }, control, register } = useForm<any>(formOptions);
+
+	// SUBMIT PHONE NUMBER
+	// const onSubmit: SubmitHandler<Inputs> = async data => {
+	// 	const { phone } = data
+	// 	setLoading(true)
+	// 	let { user, error } = await supabase.auth.signIn({
+	// 		phone,
+	// 	})
+	// 	setLoading(false)
+	// 	!error && setVerify(true)
+	// }
+
 	// SUBMIT PHONE NUMBER AND SMS OTP //
-	const verifySubmit: SubmitHandler<VerifyInputs> = async data => {
-		const { phone, token } = data
-		setLoading(true)
-		let { session, error } = await supabase.auth.verifyOTP({
-			phone,
-			token,
-		})
-		!error && router.push('/cart')
-	}
+	// const verifySubmit: SubmitHandler<VerifyInputs> = async data => {
+	// 	const { phone, token } = data
+	// 	setLoading(true)
+	// 	let { session, error } = await supabase.auth.verifyOTP({
+	// 		phone,
+	// 		token,
+	// 	})
+	// 	!error && router.push('/cart')
+	// }
 
 	return <div className={s.wrapper}>
 		{ loading && <ImSpinner size={30}/> }
 		{ !loading && !verify &&
+			<form onSubmit={handleSubmit(emailSubmit)}>
+				<label>Введите номер телефона</label>
+				<input type='email' placeholder="Введите почту" {...register('email', { required: true })} aria-invalid={errors.email ? 'true' : 'false'} />
+				<div className={s.spacer}></div>
+				<button type="submit">Далее</button>
+			</form>
+		}
+		{ !loading && verify &&
+			<div>
+				<p>Перейдите по ссылке высланной на вашу почту</p>
+			</div>
+		}
+		{/* { !loading && !verify &&
 			<form onSubmit={handleSubmit(onSubmit)}>
 				<label>Введите номер телефона</label>
 				<Controller
@@ -87,8 +111,8 @@ const Cart: NextPage<Props> = ({ user, loggedIn }) => {
 				<div className={s.spacer}></div>
 				<button type="submit">Далее</button>
 			</form>
-		}
-		{ !loading && verify &&
+		} */}
+		{/* { !loading && verify &&
 			<form onSubmit={handleSubmit(verifySubmit)}>
 				<label>Введите СМС код</label>
 				<Controller
@@ -111,7 +135,7 @@ const Cart: NextPage<Props> = ({ user, loggedIn }) => {
 				<div className={s.spacer}></div>
 				<button type="submit">Далее</button>
 			</form>
-		}
+		} */}
 	</div>
 }
 
