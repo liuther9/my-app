@@ -6,6 +6,7 @@ class MyDocument extends Document {
       <Html lang='ru-ru'>
         <Head>
           <meta charSet="utf-8" />
+          <meta name='robots' content='index,follow' />
           <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
           <link rel="icon" type="image/png" href="NOOTS-logos/noots_main_logo.png" />
           <meta name="robots" content="index, follow" />
