@@ -16,7 +16,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 	const JWT_REFRESH_TOKEN = process.env.JWT_REFRESH_TOKEN || ''
 
 	if (hashedData === hash) {
-		console.log('user confirmed');
 		const accessToken = Jwt.sign({ user_id: id }, JWT_AUTH_TOKEN, { expiresIn: '1d' });
 		const refreshToken = Jwt.sign({ user_id: id }, JWT_REFRESH_TOKEN, { expiresIn: '1y' });
 
@@ -73,6 +72,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 		res.status(202).send({ msg: 'Device verified' });
 	} else {
 		console.log('not authenticated');
-		return res.status(400).send({ verification: false, msg: 'Incorrect OTP' });
+		return res.status(400).send({ verification: false, msg: 'Incorrect user' });
 	}
 }
