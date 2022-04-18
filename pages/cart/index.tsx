@@ -3,8 +3,9 @@ import { GetServerSideProps, NextPage } from "next"
 import { useContext, useEffect, useState } from "react"
 import useSWR, { useSWRConfig } from "swr"
 import { useRouter } from 'next/router'
+import { getCookie } from "cookies-next"
+import jwt from 'jsonwebtoken'
 import { fetchApi } from "../../api"
-import { supabase } from "../../utils/supabaseClient"
 import AddressForm from "../../components/AddressComponents/AddressForm"
 import AddressList from "../../components/AddressComponents/AddressList"
 import OrderNavigationBar from "../../components/OrderNavigationBar"
@@ -13,8 +14,7 @@ import AppContext from "../../store/Context/AppContext"
 import s from './cart.module.scss'
 
 type Props = {
-	user: User,
-	loggedIn: boolean,
+	user_id: any,
 }
 
 interface IPaymentTypes {
@@ -30,7 +30,7 @@ const paymentTypes:IPaymentTypes[] = [
 ]
 
 
-const Cart: NextPage<Props> = ({ user, loggedIn }) => {
+const Cart: NextPage<Props> = ({ user_id }) => {
 	const [selectedRadio, setSelectedRadio] = useState('')
 	const [pageSwitched, setPageSwitched] = useState(false)
 	const [paymentType, setPaymentType] = useState<'cash' |'card'>('cash')
@@ -40,14 +40,17 @@ const Cart: NextPage<Props> = ({ user, loggedIn }) => {
 	const { cart, clearCart } = useContext(AppContext)
 
   const { mutate } = useSWRConfig()
-	const fetcher = (url: string) => fetch(url + `?id=${user.id}`).then((res) => res.json());
+	const fetcher = (url: string) => fetch(url + `?id=${user_id.user_id}`).then((res) => res.json());
 	const { data, error } = useSWR('/api/address', fetcher)
 
   const handleRadioChange = (item: string) => setSelectedRadio(item)
+	useEffect(() => {
+		handleRadioChange((data && data.length > 0 && data?.at(-1)) ? data.at(-1).id : '')
+	}, [data])
 
 	const submitOrder = async () => {
 		const res = await fetchApi('/api/order', {
-			user_id: user.id,
+			user_id: user_id.user_id,
 			order_list: cart?.items,
 			payment_type: paymentType,
 			address: selectedRadio,
@@ -60,8 +63,6 @@ const Cart: NextPage<Props> = ({ user, loggedIn }) => {
 	}
 
 	const nextButtonAction = () => pageSwitched === false ? setPageSwitched(true) : submitOrder()
-
-	useEffect(() => handleRadioChange((data && data.length > 0 && data?.at(-1)) ? data.at(-1).id : ''), [data])
 
 	return <div className={s.wrapper}>
 		<main className={s.container}>
@@ -90,10 +91,10 @@ const Cart: NextPage<Props> = ({ user, loggedIn }) => {
 					<AddressList
 						selectedRadio={selectedRadio}
 						handleRadioChange={handleRadioChange}
-						data={data} 
+						data={data}
 					/>
 				}
-				<AddressForm id={user.id} mutate={mutate} />
+				<AddressForm user_id={user_id.user_id} mutate={mutate} />
 			</div>
 		</main>
 	</div>
@@ -101,10 +102,14 @@ const Cart: NextPage<Props> = ({ user, loggedIn }) => {
 
 export default Cart
 
-export const getServerSideProps: GetServerSideProps = async ({ req }) => {
-	const { user } = await supabase.auth.api.getUserByCookie(req)
-
-	if (!user) {
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+	let id
+	jwt.verify(req.cookies.accessToken, process.env.JWT_AUTH_TOKEN || '', async (err, user_id) => {
+		if (user_id) {
+			id = user_id
+		}
+	});
+	if (!getCookie('authSession', { req, res })) {
 		return {
 			redirect: {
 				destination: '/auth',
@@ -112,10 +117,10 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 			}
 		}
 	}
+
 	return {
 		props: {
-			user,
-			loggedIn: !!user,
+			user_id: id,
 		}
 	}
 }

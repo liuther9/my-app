@@ -6,21 +6,21 @@ import { ScopedMutator } from "swr/dist/types"
 import { supabase } from "../../../utils/supabaseClient"
 
 type Props = {
-	id: string,
+	user_id: string,
 	mutate: ScopedMutator<any>,
 }
 
-const AddressForm:React.FC<Props> = ({ id, mutate }) => {
+const AddressForm:React.FC<Props> = ({ user_id, mutate }) => {
   const { register, handleSubmit, getValues, control, reset, formState: { errors } } = useForm();
 
 	const onSubmit = async () => {
 		const session = supabase.auth.session()
-		const values = await getValues(["street", "building", "appartment", "phone"])
+		const values = getValues(["street", "building", "appartment", "phone"])
 		const res = await fetch('/api/address', {
 			method: 'POST',
 			headers: new Headers({ 'Content-Type': 'application/json', 'Authorization': `${session?.access_token}` }),
 			credentials: 'same-origin',
-			body: JSON.stringify({ user_id: id, address: { street: values[0], building: values[1], appartment: values[2], }, phone: values[3], })
+			body: JSON.stringify({ user_id, street: values[0], building: values[1], appartment: values[2], phone: values[3], })
 		})
 		reset()
 		reset({ phone: '' })

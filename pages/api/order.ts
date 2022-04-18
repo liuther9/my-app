@@ -1,17 +1,14 @@
 import { NextApiRequest, NextApiResponse } from "next"
 import { supabase } from "../../utils/supabaseClient"
-import cookie from 'cookie'
 
 export default async function handler(req:NextApiRequest, res:NextApiResponse) {
 	const { user_id, payment_type, address, order_list, total } = req.body
 	
 	//AUTHORIZATION
-  let cookies = cookie.parse(req.headers.cookie || '')
-	let token = cookies['sb-access-token']
-	supabase.auth.setAuth(token)
+	if (!req.cookies.authSession) res.status(401).end('unauthorized')
 
 	//ADD NEW ORDER
-	const {data, error} = await supabase.from('ORDERS').insert(
+	const {data, error} = await supabase.from('order').insert(
 		[
 			{
 				user_id,
@@ -27,18 +24,17 @@ export default async function handler(req:NextApiRequest, res:NextApiResponse) {
 
 	//SEND ORDER INFO TO TELEGRAM
 	const order = data && data[0]
-	const user_info = await supabase.from('USER_INFO').select('address, phone').eq('id', order.address).then(res => res.data)
-	const user_phone = user_info ? user_info[0].phone : {}
-	const user_address = user_info ? user_info[0].address : {}
-	const { building, street, appartment } = user_address
+	const user_address = await supabase.from('address').select('street, building, appartment, phone').eq('id', address).then(res => res.data)
+	const u_address = user_address ? user_address[0] : {}
+	const {phone, building, street, appartment} = u_address
 
 	const sendMessage = `
-		${order.order_list?.map((item: { name: string; quantity: string | number; }) => {
-			return `Товар: ${item.name} ${item.quantity} шт.%0A`
-			})}
+		Товар: ${order.order_list?.map((item: { name: string; quantity: string | number; }) => {
+			return `%0A${item.name} ${item.quantity} шт.`
+			})}%0A%0A
 		Общая сумма: ${order.total}%0A
 		Адрес: ${street + ' ' + building + ', ' + (appartment && ('квартира ' + appartment))}%0A
-		Телефон: ${user_phone}%0A
+		Телефон: ${phone}%0A
 		Способ оплаты: ${order.payment_type}%0A
 		Статус оплаты:${order.payed?'Оплачено':'Не оплачено'}
 	`
@@ -47,7 +43,7 @@ export default async function handler(req:NextApiRequest, res:NextApiResponse) {
 	const chat_id = '5201903283'
 	const chat_id_1 = '695738150'
 
-	await fetch(`https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chat_id}&text=${sendMessage}`)
+	await fetch(`https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chat_id_1}&text=${sendMessage}`)
 
 	res.send(data)
 }
