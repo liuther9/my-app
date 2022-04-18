@@ -1,7 +1,6 @@
 import { useRouter } from 'next/router'
 import { Fragment, useState, useEffect } from 'react'
 import { Product } from '../../types'
-import Auth from '../../utils/Auth'
 import AppContext from '../../store/Context/AppContext'
 import ShoppingButton from '../ShoppingCart/ShoppingButton'
 import ShoppingModal from '../ShoppingCart/ShoppingModal'
@@ -23,7 +22,6 @@ const initialState = { items: [], total: 0, itemCount: 0 }
 const Layout:React.FC<IType> = ({children}) => {
 	const [cart, setCart] = useState<Cart>(initialState)
 	const [cartOpen, setCartOpen] = useState(false)
-	const { session } = Auth()
 
 	useEffect(() => {cart.itemCount === 0 && setCartOpen(false)}, [cart.itemCount])
 	useEffect(() => {
@@ -100,7 +98,6 @@ const Layout:React.FC<IType> = ({children}) => {
 		addProduct,
 		removeItem,
 		clearCart,
-		session: session !== null ? session : undefined,
 	}}>
 		<div className={s.wrapper}>
 			<Header />

@@ -14,11 +14,10 @@ const AddressForm:React.FC<Props> = ({ user_id, mutate }) => {
   const { register, handleSubmit, getValues, control, reset, formState: { errors } } = useForm();
 
 	const onSubmit = async () => {
-		const session = supabase.auth.session()
 		const values = getValues(["street", "building", "appartment", "phone"])
 		const res = await fetch('/api/address', {
 			method: 'POST',
-			headers: new Headers({ 'Content-Type': 'application/json', 'Authorization': `${session?.access_token}` }),
+			headers: new Headers({ 'Content-Type': 'application/json' }),
 			credentials: 'same-origin',
 			body: JSON.stringify({ user_id, street: values[0], building: values[1], appartment: values[2], phone: values[3], })
 		})

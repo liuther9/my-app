@@ -33,13 +33,12 @@ const Cart: NextPage = () => {
 	}
 
 	return <div className={s.wrapper}>
-		{ !loading && 
-			<TelegramLoginButton
-				botName="nootskz_bot"
-				dataOnauth={onSubmit}
-				usePic={true}
-			/>
-		}
+		<TelegramLoginButton
+			botName="nootskz_bot"
+			dataOnauth={onSubmit}
+			usePic={true}
+		/>
+		<div className="spacer"></div>
 		{ loading && 
 			<FiLoader />
 		}
