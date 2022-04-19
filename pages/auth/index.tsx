@@ -17,29 +17,35 @@ const Cart: NextPage = () => {
 	const onSubmit = async (user: TelegramUser) => {
 		const { auth_date, first_name, id, username, hash } = user
 		setLoading(true)
-		const res = await fetch('/api/sendOtp', {
-			method: 'POST',
-			headers: new Headers({
-				'Content-Type': 'application/json',
-			}),
-			credentials: 'same-origin',
-			body: JSON.stringify({ auth_date, first_name, id, username, hash })
-		})
+		if (username) {
+			try {
+				const res = await fetch('/api/sendOtp', {
+					method: 'POST',
+					headers: new Headers({
+						'Content-Type': 'application/json',
+					}),
+					credentials: 'same-origin',
+					body: JSON.stringify({ auth_date, first_name, id, username, hash })
+				})
 
-		const responseData: any = await res.json()
-
-		if (responseData.msg === 'Device verified') {
-			router.push('/cart')
-		} else if (responseData.msg === 'Incorrect user') {
-			setLoading(false)
-			alert('Не удалось подключиться')
+				const responseData: any = await res.json()
+				if (responseData.msg === 'Device verified') {
+					router.push('/cart')
+				} else if (responseData.msg === 'Incorrect user') {
+					setLoading(false)
+					alert('Не удалось подключиться')
+				}
+			} catch (error) {
+				console.log(error)
+			}
 		}
+
 	}
 
 	return <div className={s.wrapper}>
 		<TelegramLoginButton
 			botName="nootskz_bot"
-			dataOnauth={onSubmit}
+			dataOnauth={user => onSubmit(user)}
 			usePic={true}
 		/>
 		<div className="spacer"></div>
