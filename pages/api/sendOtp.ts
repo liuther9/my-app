@@ -8,12 +8,12 @@ import { supabase } from "../../utils/supabaseClient";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
 	const { auth_date, first_name, id, username, hash } = req.body;
-	const botToken = sha256('5095347305:AAHUpQYNmkqlYIj2-UEq-8FjNZvrVnru-9s')
+	const botToken = sha256(process.env.BOT_TOKEN || '')
 	const hmacData = HmacSHA256(`auth_date=${auth_date}\nfirst_name=${first_name}\nid=${id}\nusername=${username}`, botToken)
 	const hashedData = hex.stringify(hmacData)
 
-	const JWT_AUTH_TOKEN = 'j+/yZnChcsWFI5fG2ziRn1vWzDy6gE3K+AK8YfiV3nM='
-	const JWT_REFRESH_TOKEN = '+6+Ib8y8IzAzSq+lEVxF85be6TjzgWWM5KB8z5ysLwU='
+	const JWT_AUTH_TOKEN = process.env.JWT_AUTH_TOKEN || ''
+	const JWT_REFRESH_TOKEN = process.env.JWT_REFRESH_TOKEN || ''
 
 	const accessToken = Jwt.sign({ user_id: id }, JWT_AUTH_TOKEN, { expiresIn: '1d' });
 	const refreshToken = Jwt.sign({ user_id: id }, JWT_REFRESH_TOKEN, { expiresIn: '1y' });
