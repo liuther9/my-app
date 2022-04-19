@@ -16,8 +16,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 	const JWT_REFRESH_TOKEN = process.env.JWT_REFRESH_TOKEN || ''
 
 	if (hashedData === hash) {
-		const accessToken = Jwt.sign({ user_id: id }, JWT_AUTH_TOKEN, { expiresIn: '1d' });
-		const refreshToken = Jwt.sign({ user_id: id }, JWT_REFRESH_TOKEN, { expiresIn: '1y' });
+		// const accessToken = Jwt.sign({ user_id: id }, JWT_AUTH_TOKEN, { expiresIn: '1d' });
+		// const refreshToken = Jwt.sign({ user_id: id }, JWT_REFRESH_TOKEN, { expiresIn: '1y' });
 
 		// const refreshTokenDb = await supabase.from('refresh_tokens').select('*').eq('refresh_token', refreshToken)
 		// console.log(refreshTokenDb)
@@ -43,20 +43,20 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 			)
 		}
 
-		setCookies('accessToken', accessToken, {
-			req,
-			res,
-			expires: new Date(new Date().getTime() + 60 * 60 * 24 * 1000),
-			sameSite: true,
-			httpOnly: true
-		})
-		setCookies('refreshToken', refreshToken, {
-			req,
-			res,
-			expires: new Date(new Date().getTime() + 31557600000),
-			sameSite: 'strict',
-			httpOnly: true
-		})
+		// setCookies('accessToken', accessToken, {
+		// 	req,
+		// 	res,
+		// 	expires: new Date(new Date().getTime() + 60 * 60 * 24 * 1000),
+		// 	sameSite: true,
+		// 	httpOnly: true
+		// })
+		// setCookies('refreshToken', refreshToken, {
+		// 	req,
+		// 	res,
+		// 	expires: new Date(new Date().getTime() + 31557600000),
+		// 	sameSite: 'strict',
+		// 	httpOnly: true
+		// })
 		setCookies('authSession', true, {
 			req,
 			res,
