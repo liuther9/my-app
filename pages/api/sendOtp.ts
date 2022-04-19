@@ -8,16 +8,16 @@ import { supabase } from "../../utils/supabaseClient";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
 	const { auth_date, first_name, id, username, hash } = req.body;
-	const botToken = sha256(process.env.BOT_TOKEN || '')
+	const botToken = sha256('5095347305:AAHUpQYNmkqlYIj2-UEq-8FjNZvrVnru-9s')
 	const hmacData = HmacSHA256(`auth_date=${auth_date}\nfirst_name=${first_name}\nid=${id}\nusername=${username}`, botToken)
 	const hashedData = hex.stringify(hmacData)
 
-	const JWT_AUTH_TOKEN = process.env.JWT_AUTH_TOKEN || ''
-	const JWT_REFRESH_TOKEN = process.env.JWT_REFRESH_TOKEN || ''
+	const JWT_AUTH_TOKEN = 'j+/yZnChcsWFI5fG2ziRn1vWzDy6gE3K+AK8YfiV3nM='
+	const JWT_REFRESH_TOKEN = '+6+Ib8y8IzAzSq+lEVxF85be6TjzgWWM5KB8z5ysLwU='
 
 	if (hashedData === hash) {
-		// const accessToken = Jwt.sign({ user_id: id }, JWT_AUTH_TOKEN, { expiresIn: '1d' });
-		// const refreshToken = Jwt.sign({ user_id: id }, JWT_REFRESH_TOKEN, { expiresIn: '1y' });
+		const accessToken = Jwt.sign({ user_id: id }, JWT_AUTH_TOKEN, { expiresIn: '1d' });
+		const refreshToken = Jwt.sign({ user_id: id }, JWT_REFRESH_TOKEN, { expiresIn: '1y' });
 
 		// const refreshTokenDb = await supabase.from('refresh_tokens').select('*').eq('refresh_token', refreshToken)
 		// console.log(refreshTokenDb)
@@ -43,20 +43,20 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 			)
 		}
 
-		// setCookies('accessToken', accessToken, {
-		// 	req,
-		// 	res,
-		// 	expires: new Date(new Date().getTime() + 60 * 60 * 24 * 1000),
-		// 	sameSite: true,
-		// 	httpOnly: true
-		// })
-		// setCookies('refreshToken', refreshToken, {
-		// 	req,
-		// 	res,
-		// 	expires: new Date(new Date().getTime() + 31557600000),
-		// 	sameSite: 'strict',
-		// 	httpOnly: true
-		// })
+		setCookies('accessToken', accessToken, {
+			req,
+			res,
+			expires: new Date(new Date().getTime() + 60 * 60 * 24 * 1000),
+			sameSite: true,
+			httpOnly: true
+		})
+		setCookies('refreshToken', refreshToken, {
+			req,
+			res,
+			expires: new Date(new Date().getTime() + 31557600000),
+			sameSite: 'strict',
+			httpOnly: true
+		})
 		setCookies('authSession', true, {
 			req,
 			res,
