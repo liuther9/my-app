@@ -45,7 +45,7 @@ const Cart: NextPage<Props> = ({ user_id }) => {
 
   const handleRadioChange = (item: string) => setSelectedRadio(item)
 	useEffect(() => {
-		handleRadioChange(((data && data.length > 0) && data?.at(-1)) ? data.at(-1).id : '')
+		handleRadioChange((data && data.length > 0) ? data.slice(-1)[0].id : '')
 	}, [data])
 
 	const submitOrder = async () => {
