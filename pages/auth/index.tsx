@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { GetServerSideProps, NextPage } from "next"
 import { useRouter } from 'next/router'
 import { getCookie } from "cookies-next"
@@ -7,8 +7,12 @@ import s from './auth.module.scss'
 import TelegramLoginButton, { TelegramUser } from "../../components/TelegramLoginButton"
 
 const Cart: NextPage = () => {
-	const [loading, setLoading] = useState(false)
+	const [loading, setLoading] = useState(true)
   const router = useRouter()
+
+	useEffect(() => {
+		setTimeout(() => setLoading(false), 1000)
+	}, [])
 
 	const onSubmit = async (user: TelegramUser) => {
 		const { auth_date, first_name, id, username, hash } = user
