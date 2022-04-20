@@ -36,7 +36,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 	if (checkUser.data?.length === 0) {
 		const user = await supabase.from('users').insert(
 			[
-				{ username, auth_date, user_id: id }
+				{ username, auth_date, user_id: id, first_name }
 			],
 			{ returning: 'minimal' }
 		)
