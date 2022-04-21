@@ -40,7 +40,7 @@ const Cart: NextPage = () => {
 			}
 		}
 
-		submit()
+		Object.keys(user).length !== 0 && submit()
 	}, [user])
 
 	return <div className={s.wrapper}>
