@@ -17,27 +17,24 @@ const Cart: NextPage = () => {
 	const onSubmit = async (user: TelegramUser) => {
 		const { auth_date, first_name, id, username, hash } = user
 		setLoading(true)
-		async () => {
-			try {
-				const res = await fetch('/api/sendOtp', {
-					method: 'POST',
-					headers: new Headers({
-						'Content-Type': 'application/json',
-					}),
-					credentials: 'same-origin',
-					body: JSON.stringify({ auth_date, first_name, id, username, hash })
-				}).then(res => res.json())
-				if (res.msg && res.msg === 'Device verified') {
-					router.push('/cart')
-				} else if (res.msg && res.msg === 'Incorrect user') {
-					setLoading(false)
-					alert('Не удалось подключиться')
-				}
-			} catch (error) {
-				console.log(error)
+		try {
+			const res = await fetch('/api/sendOtp', {
+				method: 'POST',
+				headers: new Headers({
+					'Content-Type': 'application/json',
+				}),
+				credentials: 'same-origin',
+				body: JSON.stringify({ auth_date, first_name: first_name || '', id, username, hash })
+			}).then(res => res.json())
+			if (res.msg && res.msg === 'Device verified') {
+				router.push('/cart')
+			} else if (res.msg && res.msg === 'Incorrect user') {
+				setLoading(false)
+				alert('Не удалось подключиться')
 			}
+		} catch (error) {
+			console.log(error)
 		}
-
 	}
 
 	return <div className={s.wrapper}>
