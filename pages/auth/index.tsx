@@ -16,7 +16,7 @@ const Cart: NextPage = () => {
 
 	const onSubmit = async (user: TelegramUser) => {
 		const { auth_date, first_name, id, username, hash } = user
-		setLoading(true)
+		// setLoading(true)
 		try {
 			const res = await fetch('/api/sendOtp', {
 				method: 'POST',
