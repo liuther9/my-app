@@ -17,7 +17,7 @@ const Cart: NextPage = () => {
 	const onSubmit = async (user: TelegramUser) => {
 		const { auth_date, first_name, id, username, hash } = user
 		setLoading(true)
-		setTimeout(async () => {
+		async () => {
 			try {
 				const res = await fetch('/api/sendOtp', {
 					method: 'POST',
@@ -26,19 +26,17 @@ const Cart: NextPage = () => {
 					}),
 					credentials: 'same-origin',
 					body: JSON.stringify({ auth_date, first_name, id, username, hash })
-				})
-
-				const responseData: any = await res.json()
-				if (responseData.msg === 'Device verified') {
+				}).then(res => res.json())
+				if (res.msg && res.msg === 'Device verified') {
 					router.push('/cart')
-				} else if (responseData.msg === 'Incorrect user') {
+				} else if (res.msg && res.msg === 'Incorrect user') {
 					setLoading(false)
 					alert('Не удалось подключиться')
 				}
 			} catch (error) {
 				console.log(error)
 			}
-		}, 1000)
+		}
 
 	}
 
