@@ -104,7 +104,7 @@ export default Cart
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
 	let id
-	jwt.verify(req.cookies.accessToken, process.env.JWT_AUTH_TOKEN || '', async (err, user_id) => {
+	getCookie('authSession', { req, res }) && jwt.verify(req.cookies.accessToken, process.env.JWT_AUTH_TOKEN || '', async (err, user_id) => {
 		if (user_id) {
 			id = user_id
 		}
