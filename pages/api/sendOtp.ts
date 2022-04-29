@@ -68,5 +68,5 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 		expires: new Date(new Date().getTime() + 31557600000),
 		sameSite: 'strict'
 	})
-	res.status(202).send({ msg: 'Device verified' });
+	res.status(200).send({ msg: 'Device verified' });
 }
