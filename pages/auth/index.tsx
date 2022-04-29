@@ -48,6 +48,7 @@ const Cart: NextPage = () => {
 			botName="nootskz_bot"
 			dataOnauth={user => onSubmit(user)}
 			usePic={true}
+requestAccess=false
 		/>
 		<div className="spacer"></div>
 		{ loading && 
