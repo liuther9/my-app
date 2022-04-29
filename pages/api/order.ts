@@ -43,7 +43,7 @@ export default async function handler(req:NextApiRequest, res:NextApiResponse) {
 	const chat_id = '5201903283'
 	const chat_id_1 = '695738150'
 
-	await fetch(`https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chat_id}&text=${sendMessage}`)
+	await fetch(`https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chat_id_1}&text=${sendMessage}`)
 
 	res.send(data)
 }
