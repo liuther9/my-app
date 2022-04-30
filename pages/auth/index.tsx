@@ -47,8 +47,7 @@ const Cart: NextPage = () => {
 		<TelegramLoginButton
 			botName="nootskz_bot"
 			dataOnauth={user => onSubmit(user)}
-			usePic={true}
-requestAccess=false
+			requestAccess={false}
 		/>
 		<div className="spacer"></div>
 		{ loading && 
