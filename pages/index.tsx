@@ -59,7 +59,7 @@ const Home: NextPage<Props> = ({data, categories}) => {
 		  {product && <ProductModal product={product} showModal={showModal} setShowModal={setShowModal} />}
       
       <Search products={data} setShowModal={setShowModal} setProduct={setProduct} />
-      {/* <button onClick={() => fetch('/api/ola')}>asd</button> */}
+      <button onClick={() => fetch('/api/ola')}>asd</button>
       <div className='spacer'></div>
       <section className={styles.top_menu}>
         <div className={styles.categories_container}>

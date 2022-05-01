@@ -25,10 +25,10 @@ export default async function handler(req:NextApiRequest, res:NextApiResponse) {
 
 	const xmlRequest = js2xmlparser.parse('TKKPG', request);
 	try {
-		const response = await fetch('/api/submit', {
+		const response = await fetch('https://epaypost.fortebank.com/Exec', {
 				method: 'POST',
 				headers: {
-						'Content-Type': 'text/xml'
+						'Content-Type': 'application/xml'
 				},
 				body: xmlRequest
 		})
