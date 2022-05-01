@@ -59,7 +59,7 @@ const Home: NextPage<Props> = ({data, categories}) => {
 		  {product && <ProductModal product={product} showModal={showModal} setShowModal={setShowModal} />}
       
       <Search products={data} setShowModal={setShowModal} setProduct={setProduct} />
-
+      <button onClick={() => fetch('/api/ola')}>asd</button>
       <div className='spacer'></div>
       <section className={styles.top_menu}>
         <div className={styles.categories_container}>
@@ -93,7 +93,7 @@ const Home: NextPage<Props> = ({data, categories}) => {
   )
 }
 
-export const getStaticProps: GetStaticProps = async (context) => {
+export const getStaticProps: GetStaticProps = async () => {
   const { data, status, error } = await supabase.from('products').select('id, title, price, name, category, description, weight')
 
   const categories = data && Array.from(new Set(data.map(product => product.category)))

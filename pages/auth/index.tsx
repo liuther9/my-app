@@ -59,7 +59,6 @@ const Cart: NextPage = () => {
 export default Cart
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
-	getCookie('authSession')
 	if (getCookie('authSession', { req, res })) {
 		return {
 			redirect: {

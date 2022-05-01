@@ -1,4 +1,3 @@
-import { User } from "@supabase/supabase-js"
 import { GetServerSideProps, NextPage } from "next"
 import { useContext, useEffect, useState } from "react"
 import useSWR, { useSWRConfig } from "swr"
@@ -27,6 +26,10 @@ const paymentTypes:IPaymentTypes[] = [
 		name: 'cash',
 		label: 'Оплата наличными',
 	},
+	{
+		name: 'card',
+		label: 'Оплата картой',
+	},
 ]
 
 
@@ -44,9 +47,7 @@ const Cart: NextPage<Props> = ({ user_id }) => {
 	const { data, error } = useSWR('/api/address', fetcher)
 
   const handleRadioChange = (item: string) => setSelectedRadio(item)
-	useEffect(() => {
-		handleRadioChange((data && data.length > 0) ? data.slice(-1)[0].id : '')
-	}, [data])
+	useEffect(() => {handleRadioChange((data && data.length > 0) ? data.slice(-1)[0].id : '')}, [data])
 
 	const submitOrder = async () => {
 		const res = await fetchApi('/api/order', {
@@ -72,7 +73,7 @@ const Cart: NextPage<Props> = ({ user_id }) => {
 				nextButtonAction={nextButtonAction}
 				addressSelected={selectedRadio.length > 0}
 			/>
-			<div style={{ position: 'absolute' }} className={!pageSwitched ? s.page + ' ' + s.page_switched : s.page}>
+			<div style={{ position: 'absolute' }} className={!pageSwitched ? (s.page + ' ' + s.page_switched) : s.page}>
 				<div className={s.payment_container}>
 					<h2>Способ оплаты:</h2>
 					{ paymentTypes.map(payment => 
@@ -104,12 +105,9 @@ export default Cart
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
 	let id
-	getCookie('authSession', { req, res }) && jwt.verify(req.cookies.accessToken, process.env.JWT_AUTH_TOKEN || '', async (err, user_id) => {
-		if (user_id) {
-			id = user_id
-		}
-	});
-	if (!getCookie('authSession', { req, res })) {
+	const session = getCookie('authSession', { req, res })
+	session && jwt.verify(req.cookies.accessToken, process.env.JWT_AUTH_TOKEN || '', async (err, user_id) => user_id && (id = user_id))
+	if (!session) {
 		return {
 			redirect: {
 				destination: '/auth',

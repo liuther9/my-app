@@ -1,9 +1,9 @@
 import { useRouter } from 'next/router'
 import { SetStateAction, useContext, useEffect } from 'react'
 import { Product } from '../../../types'
-import { supabase } from '../../../utils/supabaseClient'
 import AppContext from '../../../store/Context/AppContext'
 import s from './shoppingModal.module.scss'
+import { getCookie } from 'cookies-next'
 
 type Props = {
 	items: number,
@@ -25,8 +25,8 @@ const ShoppingModal: React.FC<Props> = ({items, cartOpen, setCartOpen}) => {
   }, []);
 
 	const proceedToCheckout = () => {
-		const user = supabase.auth.user()
-		user ? router.push('/cart') : router.push('/auth')
+		const session = getCookie('authSession')
+		session ? router.push('/cart') : router.push('/auth')
 	}
 
 	return <div className={s.wrapper}>

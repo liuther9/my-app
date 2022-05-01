@@ -12,6 +12,7 @@
     "@supabase/supabase-js": "^1.28.5",
     "cookies-next": "^2.0.4",
     "crypto-js": "^4.1.1",
+    "js2xmlparser": "^4.0.2",
     "jsonwebtoken": "^8.5.1",
     "next": "^12.1.5",
     "nprogress": "^0.2.0",
