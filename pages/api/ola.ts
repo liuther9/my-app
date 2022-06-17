@@ -13,10 +13,10 @@ export default async function handler(req:NextApiRequest, res:NextApiResponse) {
 				Currency: 398,
 				Description: 'xxxxxxxx',
 				ApproveURL: 'https://www.noots.kz',
-				CancelURL: '/testshopPageReturn.jsp',
-				DeclineURL: '/testshopPageReturn.jsp',
+				CancelURL: 'https://www.noots.kz',
+				DeclineURL: 'https://www.noots.kz',
 				AddParams: {
-					"FA-DATA": `Phone=${22211444}`,
+					"FA-DATA": `Phone=${77006452307}`,
 					OrderExpirationPeriod: 30
 				},
 			}
@@ -24,6 +24,7 @@ export default async function handler(req:NextApiRequest, res:NextApiResponse) {
 	};
 
 	const xmlRequest = js2xmlparser.parse('TKKPG', request);
+	console.log(xmlRequest)
 	try {
 		const response = await fetch('https://epaypost.fortebank.com/Exec', {
 				method: 'POST',
@@ -34,6 +35,6 @@ export default async function handler(req:NextApiRequest, res:NextApiResponse) {
 		})
 		res.status(200).send('GOOD')
 	} catch (error) {
-		res.status(400).send(error)
+		res.status(400).send({error, xmlRequest})
 	}
 }
