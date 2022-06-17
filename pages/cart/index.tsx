@@ -26,10 +26,10 @@ const paymentTypes:IPaymentTypes[] = [
 		name: 'cash',
 		label: 'Оплата наличными',
 	},
-	{
-		name: 'card',
-		label: 'Оплата картой',
-	},
+	// {
+	// 	name: 'card',
+	// 	label: 'Оплата картой',
+	// },
 ]
 
 
