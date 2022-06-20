@@ -13,7 +13,26 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
-    "incremental": true
+    "incremental": true,
+    "baseUrl": "./",
+    "paths": {
+      "components/*": [
+        "./components/*"
+      ],
+      "types/*": [
+        "./types/*"
+      ],
+      "layout/*": [
+        "./layout/*"
+      ],
+      "store/*": [
+        "./store/*"
+      ],
+      "api/*": [
+        "./api/*"
+      ],
+    },
+    "typeRoots": [ "./types", "./node_modules/@types"]
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "utils/supabaseClient.js", "components/Icons/Instagram.js", "bot/app.js"],
   "exclude": ["node_modules"]

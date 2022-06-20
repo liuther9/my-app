@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { supabase } from "../../utils/supabaseClient";
 
 export default async function handler(req:NextApiRequest, res:NextApiResponse) {
-	if (!req.cookies.authSession) res.status(401).end('unauthorized')
+	// if (!req.cookies.authSession) res.status(401).end('unauthorized')
 
 	if(req.method === 'POST') {
 		const { street, building, appartment, phone, user_id } = req.body

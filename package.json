@@ -10,34 +10,32 @@
   "dependencies": {
     "@hookform/resolvers": "^2.8.8",
     "@supabase/supabase-js": "^1.28.5",
+    "2gis-maps": "^3.7.1",
     "cookies-next": "^2.0.4",
     "crypto-js": "^4.1.1",
-    "js2xmlparser": "^4.0.2",
     "jsonwebtoken": "^8.5.1",
     "next": "^12.1.6",
     "nprogress": "^0.2.0",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "react-hook-form": "^7.30.0",
     "react-icons": "^4.3.1",
     "react-number-format": "^4.9.1",
-    "react-yandex-maps": "^4.6.0",
     "sass": "^1.52.3",
+    "sharp": "^0.30.6",
     "swr": "^1.3.0",
+    "uuid": "^8.3.2",
     "yup": "^0.32.11"
   },
   "devDependencies": {
-    "@testing-library/jest-dom": "^5.16.1",
-    "@testing-library/react": "^12.1.2",
     "@types/crypto-js": "^4.1.1",
-    "@types/google-map-react": "^2.1.3",
     "@types/jsonwebtoken": "^8.5.8",
     "@types/node": "^16.11.7",
     "@types/nprogress": "^0.2.0",
-    "@types/react": "^17.0.34",
+    "@types/react": "^18.0.14",
+    "@types/uuid": "^8.3.4",
     "eslint": "7.32.0",
     "eslint-config-next": "12.0.3",
-    "jest": "^27.4.5",
-    "typescript": "^4.4.4"
+    "typescript": "^4.7.4"
   }
 }

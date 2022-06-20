@@ -3,14 +3,15 @@ import { GetStaticProps } from 'next'
 import { useCallback, useEffect, useState } from 'react'
 import { GiCookie } from 'react-icons/gi'
 import { MdCake } from 'react-icons/md'
+import { v4 as uuidv4 } from 'uuid'
 import { supabase } from '../utils/supabaseClient'
 import ProductComponent from '../components/ProductComponent'
 import Search from '../components/Search'
 import ProductModal from '../components/ProductComponent/ProductModal'
 import { Product } from '../types'
-import styles from '../styles/Home.module.scss'
 import siteMetadata from '../components/HeadSeo/siteMetaData'
 import HeadSeo from '../components/HeadSeo'
+import styles from '../styles/Home.module.scss'
 
 type Props = {
   children: React.ReactNode,
@@ -23,6 +24,11 @@ const Home: NextPage<Props> = ({data, categories}) => {
   const [product, setProduct] = useState<Product>()
 	const [showModal, setShowModal] = useState(false)
   const [selectedCategory, setSelectedCategory] = useState<string>('')
+
+  useEffect(() => {
+    const userId = localStorage.getItem('user_id')
+    !userId && localStorage.setItem('user_id', uuidv4())
+  }, [])
 
   // CATEGORIES
   const categoryList = [
@@ -37,8 +43,8 @@ const Home: NextPage<Props> = ({data, categories}) => {
   ]
 
   // MEMOIZED SETSTATE
-  const openModal = useCallback((open) => setShowModal(open), [])
-  const chooseProductModal = useCallback((product) => setProduct(product), [])
+  const openModal = useCallback((open: boolean) => setShowModal(open), [])
+  const chooseProductModal = useCallback((product: Product) => setProduct(product), [])
 
   // FILTERING DISPLAYED PRODUCTS
   const filterProducts = (category: string) => {

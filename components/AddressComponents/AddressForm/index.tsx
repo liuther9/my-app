@@ -8,12 +8,14 @@ import { supabase } from "../../../utils/supabaseClient"
 type Props = {
 	user_id: string,
 	mutate: ScopedMutator<any>,
+	setLoading: (e: boolean) => void,
 }
 
-const AddressForm:React.FC<Props> = ({ user_id, mutate }) => {
+const AddressForm:React.FC<Props> = ({ user_id, mutate, setLoading }) => {
   const { register, handleSubmit, getValues, control, reset, formState: { errors } } = useForm();
 
 	const onSubmit = async () => {
+		setLoading(true)
 		const values = getValues(["street", "building", "appartment", "phone"])
 		const res = await fetch('/api/address', {
 			method: 'POST',
@@ -24,6 +26,7 @@ const AddressForm:React.FC<Props> = ({ user_id, mutate }) => {
 		reset()
 		reset({ phone: '' })
 		mutate('/api/address')
+		setLoading(false)
 	}
 
 	return <Fragment>

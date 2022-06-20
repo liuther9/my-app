@@ -15,6 +15,7 @@ const ShoppingModal: React.FC<Props> = ({items, cartOpen, setCartOpen}) => {
 	const {cart, addProduct, removeItem, clearCart} = useContext(AppContext)
 	const router = useRouter()
 
+	// CLOSE SHOPPING MODAL
   useEffect(() => {
     if (typeof window !== "undefined") {
 			const handleRouteChange = () => setCartOpen(false)
@@ -27,6 +28,7 @@ const ShoppingModal: React.FC<Props> = ({items, cartOpen, setCartOpen}) => {
 	const proceedToCheckout = () => {
 		const session = getCookie('authSession')
 		session ? router.push('/cart') : router.push('/auth')
+		router.push('/cart')
 	}
 
 	return <div className={s.wrapper}>

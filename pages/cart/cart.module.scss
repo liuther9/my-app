@@ -27,6 +27,9 @@
 	&_switched {
 		transform: translateX(calc(-100vw - 100%));
 	}
+	svg {
+		animation: loading 1.5s linear 0s infinite none;
+	}
 }
 
 .payment_container {
@@ -35,4 +38,9 @@
 	padding: 20px;
 	background-color: #fff;
 	@include variables.shadow;
+}
+
+@keyframes loading {
+	from {transform: rotate(0deg);}
+	to {transform: rotate(359deg);}
 }

@@ -11,6 +11,7 @@ import OrderNavigationBar from "../../components/OrderNavigationBar"
 import RadioButton from "../../components/RadioButton"
 import AppContext from "../../store/Context/AppContext"
 import s from './cart.module.scss'
+import { FiLoader } from "react-icons/fi"
 
 type Props = {
 	user_id: any,
@@ -37,21 +38,27 @@ const Cart: NextPage<Props> = ({ user_id }) => {
 	const [selectedRadio, setSelectedRadio] = useState('')
 	const [pageSwitched, setPageSwitched] = useState(false)
 	const [paymentType, setPaymentType] = useState<'cash' |'card'>('cash')
+	const [userId, setUserId] = useState('')
+	const [loading, setLoading] = useState(false)
 
   const router = useRouter()
 
 	const { cart, clearCart } = useContext(AppContext)
 
   const { mutate } = useSWRConfig()
-	const fetcher = (url: string) => fetch(url + `?id=${user_id.user_id}`).then((res) => res.json());
+	const fetcher = (url: string) => fetch(url + `?id=${userId}`).then((res) => res.json());
 	const { data, error } = useSWR('/api/address', fetcher)
 
   const handleRadioChange = (item: string) => setSelectedRadio(item)
 	useEffect(() => {handleRadioChange((data && data.length > 0) ? data.slice(-1)[0].id : '')}, [data])
 
+	useEffect(() => {
+		setUserId(localStorage.getItem('user_id') || '')
+	}, [])
+
 	const submitOrder = async () => {
 		const res = await fetchApi('/api/order', {
-			user_id: user_id.user_id,
+			user_id: userId,
 			order_list: cart?.items,
 			payment_type: paymentType,
 			address: selectedRadio,
@@ -95,7 +102,8 @@ const Cart: NextPage<Props> = ({ user_id }) => {
 						data={data}
 					/>
 				}
-				<AddressForm user_id={user_id.user_id} mutate={mutate} />
+				{ loading && <FiLoader /> }
+				<AddressForm user_id={userId} mutate={mutate} setLoading={setLoading} />
 			</div>
 		</main>
 	</div>
@@ -103,22 +111,22 @@ const Cart: NextPage<Props> = ({ user_id }) => {
 
 export default Cart
 
-export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
-	let id
-	const session = getCookie('authSession', { req, res })
-	session && jwt.verify(req.cookies.accessToken, process.env.JWT_AUTH_TOKEN || '', async (err, user_id) => user_id && (id = user_id))
-	if (!session) {
-		return {
-			redirect: {
-				destination: '/auth',
-				permanent: false,
-			}
-		}
-	}
+// export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+// 	let id
+// 	const session = getCookie('authSession', { req, res })
+// 	session && jwt.verify(req.cookies.accessToken, process.env.JWT_AUTH_TOKEN || '', async (err, user_id) => user_id && (id = user_id))
+// 	if (!session) {
+// 		return {
+// 			redirect: {
+// 				destination: '/auth',
+// 				permanent: false,
+// 			}
+// 		}
+// 	}
 
-	return {
-		props: {
-			user_id: id,
-		}
-	}
-}
+// 	return {
+// 		props: {
+// 			user_id: id,
+// 		}
+// 	}
+// }
