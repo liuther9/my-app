@@ -7,7 +7,7 @@ type Props = {
 	canonicalUrl?: any,
 	ogType?: any,
 	ogImageUrl?: any,
-    children: any,
+    children?: any,
 }
 
 const HeadSeo:React.FC<Props> = ({
