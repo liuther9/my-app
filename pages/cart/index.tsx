@@ -46,7 +46,7 @@ const Cart: NextPage<Props> = ({ user_id }) => {
 	const { cart, clearCart } = useContext(AppContext)
 
   const { mutate } = useSWRConfig()
-	const fetcher = (url: string) => fetch(url + `?id=${userId}`).then((res) => res.json());
+	const fetcher = (url: string) => fetch(url + `?id=${localStorage.getItem('user_id') || ''}`).then((res) => res.json());
 	const { data, error } = useSWR('/api/address', fetcher)
 
   const handleRadioChange = (item: string) => setSelectedRadio(item)
