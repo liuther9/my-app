@@ -26,8 +26,8 @@ const ShoppingModal: React.FC<Props> = ({items, cartOpen, setCartOpen}) => {
   }, []);
 
 	const proceedToCheckout = () => {
-		const session = getCookie('authSession')
-		session ? router.push('/cart') : router.push('/auth')
+		// const session = getCookie('authSession')
+		// session ? router.push('/cart') : router.push('/auth')
 		router.push('/cart')
 	}
 
