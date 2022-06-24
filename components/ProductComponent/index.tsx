@@ -15,9 +15,10 @@ const ProductComponent: React.FC<Props> = React.memo(({ product, setShowModal, s
 
 	const {cart, addProduct} = useContext(AppContext)
 
-	const showModal = () => {
+	const showModal = (e: any) => {
+		e.stopPropagation()
 		setProduct(product)
-		setShowModal(true)
+		setShowModal()
 	}
 
 	return <div className={styles.product}>

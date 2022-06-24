@@ -9,12 +9,9 @@
 	min-height: 100vh;
 	min-width: 100vw;
 	background: #000000c7;
-	display: none;
-	&.open {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-	}
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 .container {

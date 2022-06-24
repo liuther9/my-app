@@ -20,7 +20,7 @@ const ProductModal:React.FC<Props> = ({ product, showModal, setShowModal }) => {
 
 	useClickOutside([ref, buttonRef], showModal, () => setShowModal(false))
 
-	return <div className={showModal ? `${s.wrapper} + ${s.open}` : s.wrapper}>
+	return <div className={s.wrapper}>
 		<div ref={ref} className={s.container}>
 			<div className={s.image}>
 				<Image src={`/products/${title}-2.webp`} layout='fill' objectFit='cover' />

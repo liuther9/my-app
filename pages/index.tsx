@@ -43,7 +43,6 @@ const Home: NextPage<Props> = ({data, categories}) => {
   ]
 
   // MEMOIZED SETSTATE
-  const openModal = useCallback((open: boolean) => setShowModal(open), [])
   const chooseProductModal = useCallback((product: Product) => setProduct(product), [])
 
   // FILTERING DISPLAYED PRODUCTS
@@ -62,7 +61,7 @@ const Home: NextPage<Props> = ({data, categories}) => {
       canonicalUrl={siteMetadata.siteUrl}
       ogType={"website"}
     />
-		  {product && <ProductModal product={product} showModal={showModal} setShowModal={setShowModal} />}
+		  {product && showModal && <ProductModal product={product} showModal={showModal} setShowModal={setShowModal} />}
       
       <Search products={data} setShowModal={setShowModal} setProduct={setProduct} />
       <div className='spacer'></div>
@@ -87,7 +86,7 @@ const Home: NextPage<Props> = ({data, categories}) => {
             <ProductComponent
               key={product.id}
               product={product}
-              setShowModal={openModal}
+              setShowModal={() => setShowModal(true)}
               setProduct={chooseProductModal}
             />
           )}
