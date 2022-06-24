@@ -1,5 +1,5 @@
 import s from './addresslist.module.scss'
-import RadioButton from "../../RadioButton"
+import RadioButton from "components/RadioButton"
 
 type Props = {
 	selectedRadio: string,

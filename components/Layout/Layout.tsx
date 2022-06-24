@@ -1,11 +1,11 @@
 import { useRouter } from 'next/router'
 import { Fragment, useState, useEffect } from 'react'
-import { Product } from '../../types'
-import AppContext from '../../store/Context/AppContext'
-import ShoppingButton from '../ShoppingCart/ShoppingButton'
-import ShoppingModal from '../ShoppingCart/ShoppingModal'
-import Footer from './Footer'
-import Header from './Header'
+import { Product } from 'types'
+import AppContext from 'store/Context/AppContext'
+import ShoppingButton from 'components/ShoppingCart/ShoppingButton'
+import ShoppingModal from 'components/ShoppingCart/ShoppingModal'
+import Footer from 'components/Layout/Footer'
+import Header from 'components/Layout/Header'
 import s from './layout.module.scss'
 
 interface IType {

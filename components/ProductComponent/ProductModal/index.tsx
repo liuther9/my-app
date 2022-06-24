@@ -1,8 +1,8 @@
 import Image from 'next/image'
 import { useContext, useRef } from 'react'
-import { useClickOutside } from '../../../hooks/useClickOutside'
-import AppContext from '../../../store/Context/AppContext'
-import { Product } from '../../../types'
+import { useClickOutside } from 'hooks/useClickOutside'
+import AppContext from 'store/Context/AppContext'
+import { Product } from 'types'
 import s from './productmodal.module.scss'
 
 type Props = {

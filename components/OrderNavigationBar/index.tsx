@@ -1,5 +1,4 @@
 import { MdArrowBackIos, MdArrowForwardIos } from 'react-icons/md'
-import { supabase } from '../../utils/supabaseClient'
 import s from './ordernavigationbar.module.scss'
 
 type Props = {

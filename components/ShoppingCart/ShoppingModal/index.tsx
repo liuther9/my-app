@@ -3,7 +3,6 @@ import { SetStateAction, useContext, useEffect } from 'react'
 import { Product } from '../../../types'
 import AppContext from '../../../store/Context/AppContext'
 import s from './shoppingModal.module.scss'
-import { getCookie } from 'cookies-next'
 
 type Props = {
 	items: number,

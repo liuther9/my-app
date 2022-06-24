@@ -1,6 +1,6 @@
 import { useRef, useEffect, useState } from 'react'
 import { GoSearch } from 'react-icons/go'
-import { Product } from '../../types'
+import { Product } from 'types'
 import s from './search.module.scss'
 import SearchProduct from './SearchProduct'
 

@@ -31,6 +31,12 @@
       "api/*": [
         "./api/*"
       ],
+      "styles/*": [
+        "./styles/*"
+      ],
+      "hooks/*": [
+        "./hooks/*"
+      ],
     },
     "typeRoots": [ "./types", "./node_modules/@types"]
   },

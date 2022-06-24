@@ -1,5 +1,5 @@
-import { Product } from '../../../types'
 import Image from 'next/image'
+import { Product } from 'types'
 import s from './searchproduct.module.scss'
 
 type Props = {

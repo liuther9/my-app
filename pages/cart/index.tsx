@@ -1,17 +1,15 @@
-import { GetServerSideProps, NextPage } from "next"
+import { NextPage } from "next"
 import { useContext, useEffect, useState } from "react"
 import useSWR, { useSWRConfig } from "swr"
 import { useRouter } from 'next/router'
-import { getCookie } from "cookies-next"
-import jwt from 'jsonwebtoken'
-import { fetchApi } from "../../api"
-import AddressForm from "../../components/AddressComponents/AddressForm"
-import AddressList from "../../components/AddressComponents/AddressList"
-import OrderNavigationBar from "../../components/OrderNavigationBar"
-import RadioButton from "../../components/RadioButton"
-import AppContext from "../../store/Context/AppContext"
-import s from './cart.module.scss'
+import { fetchApi } from "api"
+import AddressForm from "components/AddressComponents/AddressForm"
+import AddressList from "components/AddressComponents/AddressList"
+import OrderNavigationBar from "components/OrderNavigationBar"
+import RadioButton from "components/RadioButton"
+import AppContext from "store/Context/AppContext"
 import { FiLoader } from "react-icons/fi"
+import s from './cart.module.scss'
 
 type Props = {
 	user_id: any,
@@ -27,10 +25,6 @@ const paymentTypes:IPaymentTypes[] = [
 		name: 'cash',
 		label: 'Оплата наличными',
 	},
-	// {
-	// 	name: 'card',
-	// 	label: 'Оплата картой',
-	// },
 ]
 
 
@@ -110,23 +104,3 @@ const Cart: NextPage<Props> = ({ user_id }) => {
 }
 
 export default Cart
-
-// export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
-// 	let id
-// 	const session = getCookie('authSession', { req, res })
-// 	session && jwt.verify(req.cookies.accessToken, process.env.JWT_AUTH_TOKEN || '', async (err, user_id) => user_id && (id = user_id))
-// 	if (!session) {
-// 		return {
-// 			redirect: {
-// 				destination: '/auth',
-// 				permanent: false,
-// 			}
-// 		}
-// 	}
-
-// 	return {
-// 		props: {
-// 			user_id: id,
-// 		}
-// 	}
-// }

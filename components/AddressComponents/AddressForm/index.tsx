@@ -3,7 +3,6 @@ import NumberFormat from "react-number-format"
 import { Controller, useForm } from "react-hook-form"
 import s from './addressform.module.scss'
 import { ScopedMutator } from "swr/dist/types"
-import { supabase } from "../../../utils/supabaseClient"
 
 type Props = {
 	user_id: string,
