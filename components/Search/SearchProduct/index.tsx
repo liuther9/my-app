@@ -10,7 +10,8 @@ type Props = {
 
 const SearchProduct: React.FC<Props> = ({ product, setShowModal, setProduct }) => {
 	const { title, name } = product
-	const showModal = () => {
+	const showModal = (e: any) => {
+		e.stopPropagation()
 		setProduct(product)
 		setShowModal(true)
 	}
